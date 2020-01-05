@@ -2,7 +2,7 @@
 
 class Funkcije
 {
-    public static function dajMysqli(): mysqli
+    public static function mysqli(): mysqli
     {
         $mysqli = new mysqli("localhost", "root", "", "webapp_0173-17");
         
@@ -17,5 +17,23 @@ class Funkcije
         }
     
         return $mysqli;
+    }
+
+    public static function mysqliProvjera(\mysqli $mysqli, string $sql = ""): void
+    {
+        if ($mysqli->errno)
+        {
+            throw new Exception($mysqli->error . " SQL($sql)");
+        }
+    }
+
+    public static function korisnikPrijavljen(): bool
+    {
+        if (session_status() == PHP_SESSION_NONE)
+        {
+            session_start();
+        }
+        
+        return isset($_SESSION["korisnik_prijavljen"]) && $_SESSION["korisnik_prijavljen"] == true;
     }
 }

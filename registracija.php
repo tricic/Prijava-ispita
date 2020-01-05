@@ -1,7 +1,13 @@
 <?php
+
 spl_autoload_register();
 
 use Entiteti\Korisnik;
+
+if (Funkcije::korisnikPrijavljen())
+{
+    header("Location: /index.php");
+}
 
 if (isset($_POST["registracija"]))
 {
@@ -14,17 +20,21 @@ if (isset($_POST["registracija"]))
         $korisnik->email = $_POST["email"];
         $korisnik->sifra($_POST["sifra"]);
         $korisnik->unesi();
+        header("Location: /prijava.php?uspjeh");
     }
-    catch(Exception $e)
+    catch(GreskeException $e)
     {
-        var_dump($e);
+        $greske = $e->greske;
     }
 }
 ?>
-<?php
-require("partials/head.html");
-require("partials/nav.html");
-?>
+<html>
+<?php require("partials/head.php") ?>
+<body>
+
+<?php require("partials/nav.php") ?>
+<?php require("partials/poruke.php"); ?>
+
 <form action="registracija.php" method="post">
     <label>Korisničko ime:</label>
     <input type="text" name="korisnicko_ime" />
@@ -53,3 +63,6 @@ require("partials/nav.html");
 
     <input type="submit" name="registracija" />
 </form>
+
+</body>
+</html>

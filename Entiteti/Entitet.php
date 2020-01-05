@@ -3,7 +3,6 @@
 namespace Entiteti;
 
 use \DateTime;
-use \Exception;
 use \Funkcije;
 use \ReflectionClass;
 
@@ -36,14 +35,9 @@ abstract class Entitet
 
         $sql .= ")";
 
-        $mysqli = Funkcije::dajMysqli();
+        $mysqli = Funkcije::mysqli();
         $result = $mysqli->query($sql);
-
-        if ($result == false)
-        {
-            throw new Exception($mysqli->error);
-        }
-
+        Funkcije::mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 
@@ -72,14 +66,9 @@ abstract class Entitet
 
         $sql .= " WHERE id = {$polja['id']}";
 
-        $mysqli = Funkcije::dajMysqli();
+        $mysqli = Funkcije::mysqli();
         $result = $mysqli->query($sql);
-
-        if ($result == false)
-        {
-            throw new Exception($mysqli->error);
-        }
-
+        Funkcije::mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 
@@ -89,53 +78,40 @@ abstract class Entitet
         $polja = get_object_vars($this);
         $sql = "DELETE FROM $tabela WHERE id = {$polja['id']}";
     
-        $mysqli = Funkcije::dajMysqli();
+        $mysqli = Funkcije::mysqli();
         $result = $mysqli->query($sql);
-
-        if ($result == false)
-        {
-            throw new Exception($mysqli->error);
-        }
-
+        Funkcije::mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 
-    public static function dohvati(int $id): ?object
+    public static function dohvati(string $id, string $naziv_kolone = "id"): ?object
     {
-        $mysqli = Funkcije::dajMysqli();
-        $tabela = static::imeTabele();
-        $result = $mysqli->query("SELECT * FROM $tabela WHERE id = $id");
-
-        if ($result == false)
-        {
-            throw new Exception($mysqli->error);
-        }
-
-        $obj = $result->fetch_object(static::class);
-        return $obj;
+        $rez = static::dohvatiSveGdje($naziv_kolone, $id);
+        return $rez[0] ?? null;
     }
 
     public static function dohvatiSve(): array
     {
-        $mysqli = Funkcije::dajMysqli();
+        return static::dohvatiSveGdje("1", "1");
+    }
+
+    public static function dohvatiSveGdje(string $kolona, string $vrijednost): array
+    {
+        $mysqli = Funkcije::mysqli();
         $tabela = static::imeTabele();
-        $result = $mysqli->query("SELECT * FROM $tabela");
+        $sql = "SELECT * FROM $tabela WHERE $kolona = '$vrijednost'";
+        $result = $mysqli->query($sql);
+        Funkcije::mysqliProvjera($mysqli, $sql);
+        $mysqli->close();
 
-        if ($result == false)
-        {
-            throw new Exception($mysqli->error);
-        }
-
-        $arrResult = [];
+        $rezNiz = [];
         while ($obj = $result->fetch_object(static::class))
         {
-            $arrResult[] = $obj;
+            $rezNiz[] = $obj;
         }
-
-        $result->close();
-        $mysqli->close();
         
-        return $arrResult;
+        $result->close();
+        return $rezNiz;
     }
 
     protected static function imeTabele(): string

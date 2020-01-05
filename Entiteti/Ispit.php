@@ -2,8 +2,7 @@
 
 namespace Entiteti;
 
-use \Exception;
-use \Funkcije;
+use DateTime;
 
 class Ispit extends Entitet
 {
@@ -15,12 +14,27 @@ class Ispit extends Entitet
     public $kraj_prijave;
     public $aktivan;
 
+    public function predmet(): ?Predmet
+    {
+        return Predmet::dohvati($this->predmet_id);
+    }
+
+    public function datum(): ?DateTime
+    {
+        return empty($this->datum) ? null : new DateTime($this->datum);
+    }
+
+    public function kraj_prijave(): ?DateTime
+    {
+        return empty($this->kraj_prijave) ? null : new DateTime($this->kraj_prijave);
+    }
+
     public function prijaviKorisnika(Korisnik $korisnik): void
     {
         $ispit_korisnik = new Ispit_Korisnik();
         $ispit_korisnik->ispit_id = $this->id;
         $ispit_korisnik->korisnik_id = $korisnik->id;
-        $ispit_korisnik->Unesi();
+        $ispit_korisnik->unesi();
     }
 
     public function odjaviKorisnika(Korisnik $korisnik): void
@@ -31,30 +45,16 @@ class Ispit extends Entitet
         $ispit_korisnik->Izbrisi();
     }
 
-    public function dohvatiPrijavljeneKorisnike(): array
+    public function prijavljeniKorisnici(): array
     {
-        $mysqli = Funkcije::dajMysqli();
+        $prijavljeni_korisnici = [];
+        $ispit_korisnik_rez = Ispit_Korisnik::dohvatiSveGdje("ispit_id", $this->id);
 
-        // Dohvati listu id-eva korisnika
-        $result = $mysqli->query("SELECT korisnik_id FROM ispit_korisnik WHERE ispit_id = {$this->id}");
-
-        if ($result == false) {
-            throw new Exception($mysqli->error);
+        foreach ($ispit_korisnik_rez as $ispit_korisnik)
+        {
+            $prijavljeni_korisnici[] = $ispit_korisnik->korisnik();
         }
 
-        $idevi = [];
-        while ($row = $result->fetch_assoc()) {
-            $idevi[] = $row["korisnik_id"];
-        }
-
-        // Konvertuj id-eve u instance Korisnika
-        $prijavljeniKorisnici = [];
-        foreach ($idevi as $id) {
-            $prijavljeniKorisnici[] = Korisnik::Dohvati($id);
-        }
-
-        $result->close();
-        $mysqli->close();
-        return $prijavljeniKorisnici;
+        return $prijavljeni_korisnici;
     }
 }
