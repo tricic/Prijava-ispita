@@ -1,9 +1,7 @@
 <?php
-
 spl_autoload_register();
-session_start();
 
-use Entiteti\Korisnik;
+Funkcije::startajSesiju();
+session_destroy();
 
-Korisnik::odjava();
 header("Location: /index.php");

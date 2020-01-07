@@ -1,36 +1,72 @@
 <?php
 spl_autoload_register();
 
-use Entiteti\{Korisnik, Predmet, Ispit, Ispit_Korisnik};
+use Entiteti\Ispit;
 
-$korisnik = Korisnik::dohvati(1);
-$moji_ispiti = $korisnik->prijavljeniIspiti();
+Funkcije::zonaZaPrijavljene();
+$korisnik = Funkcije::prijavljeniKorisnik();
+$prijavljeni_ispiti = $korisnik->prijavljeniIspiti();
 $aktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", "1");
 
+// Izbaci prijavljene ispite
+$aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavljeni_ispiti) {
+    return in_array($ispit, $prijavljeni_ispiti) == false;
+});
 ?>
 <html>
-<?php require("partials/head.php") ?>
-<body>
-<?php require("partials/nav.php") ?>
-    <table>
-        <thead>
-            <th>Predmet</th>
-            <th>Opis</th>
-            <th>Datum ispita</th>
-            <th>Kraj prijave</th>
-            <th>Aktivan</th>
-        </thead>
-        <tbody>
-        <?php foreach ($aktivni_ispiti as $ispit) : ?>
-            <tr>
-                <td><?= $ispit->predmet()->naziv ?></td>
-                <td><?= $ispit->opis ?></td>
-                <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
-                <td><?= $ispit->kraj_prijave()->format("Y-m-d H:i") ?></td>
-                <td><?= $ispit->aktivan ?></td>
-            </tr>
-        <?php endforeach ?>
-        </tbody>
-    </table>
-</body>
+    <?php require("partials/head.php") ?>
+
+    <body>
+        <?php require("partials/header.php") ?>
+
+        <h3>Aktivni ispiti za prijavu:</h3>
+        <table>
+            <thead>
+                <th>Predmet</th>
+                <th>Opis</th>
+                <th>Rok prijave</th>
+                <th>Datum ispita</th>
+                <th>Opcije</th>
+            </thead>
+            <tbody>
+                <?php foreach ($aktivni_ispiti as $ispit) : ?>
+                    <tr>
+                        <td><?= $ispit->predmet()->naziv ?></td>
+                        <td><?= $ispit->opis ?></td>
+                        <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
+                        <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                        <td>
+                            <a href="ispit_prijava.php?id=<?= $ispit->id ?>" class="btn btn-small green">Prijavi</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+
+        <h3>Prijavljeni ispiti:</h3>
+        <table>
+            <thead>
+                <th>Predmet</th>
+                <th>Opis</th>
+                <th>Rok prijave</th>
+                <th>Datum ispita</th>
+                <th>Opcije</th>
+            </thead>
+            <tbody>
+                <?php foreach ($prijavljeni_ispiti as $ispit) : ?>
+                    <tr>
+                        <td><?= $ispit->predmet()->naziv ?></td>
+                        <td><?= $ispit->opis ?></td>
+                        <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
+                        <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                        <td>
+                            <a href="ispit_prijava.php?id=<?= $ispit->id ?>&odjava" class="btn btn-small red">Odjavi</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+
+        <?php require("partials/footer.php") ?>
+    </body>
 </html>

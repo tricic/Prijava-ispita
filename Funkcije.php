@@ -1,5 +1,7 @@
 <?php
 
+use Entiteti\Korisnik;
+
 class Funkcije
 {
     public static function mysqli(): mysqli
@@ -16,6 +18,7 @@ class Funkcije
             throw new Exception("Greška s konekcijom baze: " . $mysqli->error);
         }
     
+        $mysqli->set_charset("utf8");
         return $mysqli;
     }
 
@@ -27,13 +30,53 @@ class Funkcije
         }
     }
 
-    public static function korisnikPrijavljen(): bool
+    public static function startajSesiju(): void
     {
         if (session_status() == PHP_SESSION_NONE)
         {
             session_start();
         }
-        
+    }
+
+    public static function korisnikPrijavljen(): bool
+    {
+        Funkcije::startajSesiju();
         return isset($_SESSION["korisnik_prijavljen"]) && $_SESSION["korisnik_prijavljen"] == true;
+    }
+
+    public static function prijavljeniKorisnik(): ?Korisnik
+    {
+        if (self::korisnikPrijavljen() == false)
+        {
+            return null;
+        }
+
+        return Korisnik::dohvati("id", $_SESSION["korisnik_id"]);
+    }
+
+    public static function zonaZaPrijavljene(): void
+    {
+        if (self::korisnikPrijavljen() == false)
+        {
+            header("Location: korisnik_prijava.php?greska=Niste_prijavljeni!");
+        }
+    }
+
+    public static function zonaZaNeprijavljene(): void
+    {
+        if (self::korisnikPrijavljen())
+        {
+            header("Location: index.php");
+        }
+    }
+
+    public static function zonaZaAdmine(): void
+    {
+        $korisnik = self::prijavljeniKorisnik();
+        
+        if (is_null($korisnik) || $korisnik->rank != "admin")
+        {
+            header("Location: index.php?greska=Pristup_zabranjen!");
+        }
     }
 }

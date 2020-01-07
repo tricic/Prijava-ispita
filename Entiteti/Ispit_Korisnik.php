@@ -10,12 +10,12 @@ class Ispit_Korisnik extends Entitet
 
     public function ispit(): ?Ispit
     {
-        return Ispit::dohvati($this->ispit_id);
+        return Ispit::dohvati("id", $this->ispit_id);
     }
 
     public function korisnik(): ?Korisnik
     {
-        return Korisnik::dohvati($this->korisnik_id);
+        return Korisnik::dohvati("id", $this->korisnik_id);
     }
 
     public function izbrisi(): void

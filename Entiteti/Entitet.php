@@ -84,7 +84,7 @@ abstract class Entitet
         $mysqli->close();
     }
 
-    public static function dohvati(string $id, string $naziv_kolone = "id"): ?object
+    public static function dohvati(string $naziv_kolone = "id", string $id): ?object
     {
         $rez = static::dohvatiSveGdje($naziv_kolone, $id);
         return $rez[0] ?? null;

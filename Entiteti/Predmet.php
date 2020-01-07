@@ -9,5 +9,4 @@ class Predmet extends Entitet
     public $godina;
     public $semestar;
     public $profesor;
-    public $predavac;
 }

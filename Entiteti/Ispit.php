@@ -10,13 +10,12 @@ class Ispit extends Entitet
     public $predmet_id;
     public $opis;
     public $datum;
-    public $pocetak_prijave;
-    public $kraj_prijave;
+    public $rok_prijave;
     public $aktivan;
 
     public function predmet(): ?Predmet
     {
-        return Predmet::dohvati($this->predmet_id);
+        return Predmet::dohvati("id", $this->predmet_id);
     }
 
     public function datum(): ?DateTime
@@ -24,9 +23,18 @@ class Ispit extends Entitet
         return empty($this->datum) ? null : new DateTime($this->datum);
     }
 
-    public function kraj_prijave(): ?DateTime
+    public function rok_prijave(): ?DateTime
     {
-        return empty($this->kraj_prijave) ? null : new DateTime($this->kraj_prijave);
+        return empty($this->rok_prijave) ? null : new DateTime($this->rok_prijave);
+    }
+
+    public function izbrisi(): void
+    {
+        // Odjavi sve prijavljene korisnike sa ispita
+        $this->odjaviSveKorisnike();
+
+        // Obriši ispit
+        parent::izbrisi();
     }
 
     public function prijaviKorisnika(Korisnik $korisnik): void
@@ -56,5 +64,14 @@ class Ispit extends Entitet
         }
 
         return $prijavljeni_korisnici;
+    }
+
+    public function odjaviSveKorisnike(): void
+    {
+        $prijavljeni_korisnici = $this->prijavljeniKorisnici();
+        foreach ($prijavljeni_korisnici as $korisnik)
+        {
+            $this->odjaviKorisnika($korisnik);
+        }
     }
 }
