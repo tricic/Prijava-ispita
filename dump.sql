@@ -24,18 +24,22 @@ CREATE TABLE IF NOT EXISTS `ispit` (
   `predmet_id` int(11) NOT NULL,
   `opis` varchar(32) DEFAULT '',
   `datum` datetime NOT NULL,
-  `pocetak_prijave` datetime NOT NULL,
-  `kraj_prijave` datetime NOT NULL,
+  `rok_prijave` datetime NOT NULL,
   `aktivan` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_ispit_predmet` (`predmet_id`),
   CONSTRAINT `FK_ispit_predmet` FOREIGN KEY (`predmet_id`) REFERENCES `predmet` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table webapp_0173-17.ispit: ~0 rows (approximately)
+-- Dumping data for table webapp_0173-17.ispit: ~6 rows (approximately)
+DELETE FROM `ispit`;
 /*!40000 ALTER TABLE `ispit` DISABLE KEYS */;
-INSERT INTO `ispit` (`id`, `predmet_id`, `opis`, `datum`, `pocetak_prijave`, `kraj_prijave`, `aktivan`) VALUES
-	(1, 1, 'test 1', '2020-01-05 12:00:00', '2020-01-01 22:24:56', '2020-01-04 23:59:00', 1);
+INSERT INTO `ispit` (`id`, `predmet_id`, `opis`, `datum`, `rok_prijave`, `aktivan`) VALUES
+	(1, 1, 'Test 2', '2020-01-05 12:00:00', '2020-01-04 23:59:00', 1),
+	(2, 3, 'Test 2', '2020-01-07 12:00:00', '2020-01-10 23:59:00', 1),
+	(3, 4, 'Završni', '2020-01-14 12:00:00', '2020-01-13 23:59:00', 1),
+	(4, 3, 'Završni', '2020-01-05 12:00:00', '2020-01-04 23:59:00', 1),
+	(5, 1, 'Završni', '2020-01-05 12:00:00', '2020-01-04 23:59:00', 1);
 /*!40000 ALTER TABLE `ispit` ENABLE KEYS */;
 
 -- Dumping structure for table webapp_0173-17.ispit_korisnik
@@ -49,13 +53,16 @@ CREATE TABLE IF NOT EXISTS `ispit_korisnik` (
   KEY `FK_ispit_korisnik_korisnik` (`korisnik_id`),
   CONSTRAINT `FK_ispit_korisnik_ispit` FOREIGN KEY (`ispit_id`) REFERENCES `ispit` (`id`),
   CONSTRAINT `FK_ispit_korisnik_korisnik` FOREIGN KEY (`korisnik_id`) REFERENCES `korisnik` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Dumping data for table webapp_0173-17.ispit_korisnik: ~2 rows (approximately)
+-- Dumping data for table webapp_0173-17.ispit_korisnik: ~4 rows (approximately)
+DELETE FROM `ispit_korisnik`;
 /*!40000 ALTER TABLE `ispit_korisnik` DISABLE KEYS */;
 INSERT INTO `ispit_korisnik` (`id`, `ispit_id`, `korisnik_id`) VALUES
-	(1, 1, 1),
-	(2, 1, 2);
+	(2, 1, 2),
+	(7, 5, 1),
+	(8, 3, 1),
+	(12, 1, 10);
 /*!40000 ALTER TABLE `ispit_korisnik` ENABLE KEYS */;
 
 -- Dumping structure for table webapp_0173-17.korisnik
@@ -71,17 +78,19 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `korisnicko_ime` (`korisnicko_ime`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table webapp_0173-17.korisnik: ~6 rows (approximately)
+DELETE FROM `korisnik`;
 /*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
 INSERT INTO `korisnik` (`id`, `korisnicko_ime`, `ime`, `prezime`, `email`, `rank`, `sifra`) VALUES
-	(1, 'admin', '', '', 'admin@mail.com', 'admin', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
+	(1, 'admin', 'Admin', 'Adminčić', 'admin@mail.com', 'admin', '$2y$10$uDkiKd1lbdcGzrgeY1iwmOfxRoutyvhPhJu59sUZcH2LAVKWvmgQO'),
 	(2, 'user1', 'User', '1', 'user1@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
 	(3, 'user2', 'User', '2', 'user2@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
 	(4, 'user3', 'User', '3', 'user5@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
 	(6, 'user4', 'User', '4', 'user4@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
-	(7, 'user121', 'User', '121', 'user121@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy');
+	(7, 'user121', 'User', '121', 'user121@mail.com', 'student', '$2y$10$UV.tggpJ.wWWinKMMZlNT.RoPTico2cJq4rz7ZreMNWKzDySUTZMy'),
+	(10, 'test', 'Test', 'Test', 'test@test.test', 'student', '$2y$10$jCHTSsatZNTVIxq4oEoz8O2FE37gwISFbPC3gwAAxuZQ/mwl8Qw56');
 /*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
 
 -- Dumping structure for table webapp_0173-17.predmet
@@ -92,16 +101,16 @@ CREATE TABLE IF NOT EXISTS `predmet` (
   `godina` tinyint(4) NOT NULL,
   `semestar` tinyint(4) NOT NULL,
   `profesor` varchar(64) NOT NULL,
-  `predavac` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table webapp_0173-17.predmet: ~2 rows (approximately)
+-- Dumping data for table webapp_0173-17.predmet: ~3 rows (approximately)
+DELETE FROM `predmet`;
 /*!40000 ALTER TABLE `predmet` DISABLE KEYS */;
-INSERT INTO `predmet` (`id`, `naziv`, `godina`, `semestar`, `profesor`, `predavac`) VALUES
-	(1, 'Predmet A', 1, 2, 'Neki Profesor', 'Neki Profesor'),
-	(3, 'Predmet B', 1, 2, 'Neki Profesor 2', 'Neki Profesor 2'),
-	(4, 'Predmet C', 2, 3, 'Neki Profesor 3', 'Neki Profesor 3');
+INSERT INTO `predmet` (`id`, `naziv`, `godina`, `semestar`, `profesor`) VALUES
+	(1, 'Web Programiranje', 3, 5, 'Neki Profesor'),
+	(3, 'Elektronsko bankarstvo', 3, 5, 'Neki Profesor 2'),
+	(4, 'Elektronska trgovina', 3, 5, 'Neki Profesor 3');
 /*!40000 ALTER TABLE `predmet` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
