@@ -16,6 +16,8 @@ $ispiti = Ispit::dohvatiSve();
 
         <table style="margin-top: 20px;">
             <thead>
+                <th width=1>God.</th>
+                <th width=1>Sem.</th>
                 <th>Predmet</th>
                 <th>Opis</th>
                 <th>Rok prijave</th>
@@ -26,8 +28,11 @@ $ispiti = Ispit::dohvatiSve();
             </thead>
             <tbody>
                 <?php foreach ($ispiti as $ispit) : ?>
+                    <?php $predmet = $ispit->predmet() ?>
                     <tr>
-                        <td><?= $ispit->predmet()->naziv ?></td>
+                        <td><?= $predmet->godina ?></td>
+                        <td><?= $predmet->semestar ?></td>
+                        <td><?= $predmet->naziv ?></td>
                         <td><?= $ispit->opis ?></td>
                         <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                         <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>

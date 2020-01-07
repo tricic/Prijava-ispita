@@ -22,6 +22,8 @@ $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavlj
         <h3>Aktivni ispiti za prijavu:</h3>
         <table>
             <thead>
+                <th width=1>God.</th>
+                <th width=1>Sem.</th>
                 <th>Predmet</th>
                 <th>Opis</th>
                 <th>Rok prijave</th>
@@ -30,8 +32,11 @@ $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavlj
             </thead>
             <tbody>
                 <?php foreach ($aktivni_ispiti as $ispit) : ?>
+                    <?php $predmet = $ispit->predmet() ?>
                     <tr>
-                        <td><?= $ispit->predmet()->naziv ?></td>
+                        <td><?= $predmet->godina ?></td>
+                        <td><?= $predmet->semestar ?></td>
+                        <td><?= $predmet->naziv ?></td>
                         <td><?= $ispit->opis ?></td>
                         <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                         <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
@@ -46,6 +51,8 @@ $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavlj
         <h3>Prijavljeni ispiti:</h3>
         <table>
             <thead>
+                <th width=1>God.</th>
+                <th width=1>Sem.</th>
                 <th>Predmet</th>
                 <th>Opis</th>
                 <th>Rok prijave</th>
@@ -54,8 +61,11 @@ $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavlj
             </thead>
             <tbody>
                 <?php foreach ($prijavljeni_ispiti as $ispit) : ?>
+                    <?php $predmet = $ispit->predmet() ?>
                     <tr>
-                        <td><?= $ispit->predmet()->naziv ?></td>
+                        <td><?= $predmet->godina ?></td>
+                        <td><?= $predmet->semestar ?></td>
+                        <td><?= $predmet->naziv ?></td>
                         <td><?= $ispit->opis ?></td>
                         <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                         <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>

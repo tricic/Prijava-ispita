@@ -73,10 +73,18 @@ class Funkcije
     public static function zonaZaAdmine(): void
     {
         $korisnik = self::prijavljeniKorisnik();
-        
+
         if (is_null($korisnik) || $korisnik->rank != "admin")
         {
             header("Location: index.php?greska=Pristup_zabranjen!");
+        }
+    }
+
+    public static function objekatMoraPostojati(?object $obj, string $preusmjeri = "index.php", string $poruka = "Greška!")
+    {
+        if (is_null($obj))
+        {
+            header("Location: $preusmjeri?greska=$poruka");
         }
     }
 }

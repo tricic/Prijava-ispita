@@ -4,16 +4,16 @@ spl_autoload_register();
 use Entiteti\Ispit;
 use Entiteti\Predmet;
 
+Funkcije::zonaZaAdmine();
+
 $ispit_id = $_GET["id"] ?? 0;
 $ispit = Ispit::dohvati("id", $ispit_id);
 $predmeti = Predmet::dohvatiSve();
 $prijavljeni_korisnici = $ispit->prijavljeniKorisnici();
 $rbr = 1;
+$broj_prijavljenih = count($prijavljeni_korisnici);
 
-if (is_null($ispit))
-{
-    header("Location: /index.php?greska=Ispit_nije_nađen");
-}
+Funkcije::objekatMoraPostojati($ispit);
 
 if (isset($_POST["spremi_promjene"]))
 {
@@ -21,7 +21,7 @@ if (isset($_POST["spremi_promjene"]))
     $ispit->opis = $_POST["opis"];
     $ispit->datum = str_replace("T", " ", $_POST["datum"]);
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
-    $ispit->aktivan = isset($_POST["aktivan"]);
+    $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->azuriraj();
 }
 ?>
@@ -67,7 +67,7 @@ if (isset($_POST["spremi_promjene"]))
     
             <label>Aktivan</label>
             <br>
-            <input type="checkbox" name="aktivan" checked>
+            <input type="checkbox" name="aktivan" <?= $ispit->aktivan ? "checked" : null ?>>
         </fieldset>
 
         <br>
@@ -76,13 +76,19 @@ if (isset($_POST["spremi_promjene"]))
         </div>
     </form>
 
-    <h3>Lista prijavljenih (<?= count($prijavljeni_korisnici) ?>)</h3>
+    <h3>
+        Lista prijavljenih (<?= $broj_prijavljenih ?>)
+        &nbsp;
+        <?php if ($broj_prijavljenih) : ?>
+            <a href="ispit_prijava.php?id=<?= $ispit->id ?>&odjava&kid=svi" class="btn btn-small red">Odjavi sve</a>
+        <?php endif ?>
+    </h3>
     <table style="margin-top: 20px;">
             <thead>
-                <tr>
-                <th width=20>R.br.</th>
-                <th>Ime</th>
+                <th style="width: 5%;">R.br.</th>
+                <th style="width: 35%;">Ime</th>
                 <th>Prezime</th>
+                <th style="width: 20%;">Opcije</th>
             </thead>
             <tbody>
                 <?php foreach ($prijavljeni_korisnici as $korisnik) : ?>
@@ -90,6 +96,7 @@ if (isset($_POST["spremi_promjene"]))
                         <td><?= $rbr ?></td>
                         <td><?= $korisnik->ime ?></td>
                         <td><?= $korisnik->prezime ?></td>
+                        <td><a href="ispit_prijava.php?id=<?= $ispit->id ?>&odjava&kid=<?= $korisnik->id ?>" class="btn btn-small red">Odjavi</a></td>
                     </tr>
                 <?php $rbr++; endforeach ?>
             </tbody>

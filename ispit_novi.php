@@ -15,8 +15,9 @@ if (isset($_POST["novi"]))
     $ispit->opis = $_POST["opis"];
     $ispit->datum = str_replace("T", " ", $_POST["datum"]);
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
-    $ispit->aktivan = isset($_POST["aktivan"]);
+    $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->unesi();
+    header("Location: ispit_uredi.php?id=$ispit->id&poruka=Ispit kreiran.");
 }
 ?>
 <html>
@@ -26,35 +27,48 @@ if (isset($_POST["novi"]))
         <?php require("partials/header.php") ?>
 
         <form action="ispit_novi.php" method="post">
-            <label>Predmet:</label>
-            <select name="predmet_id">
-                <?php foreach($predmeti as $predmet) : ?>
-                    <option value="<?= $predmet->id ?>"><?= $predmet->naziv ?></option>
-                <?php endforeach ?>
-            </select>
-            
+            <fieldset>
+                <legend>Podaci ispita</legend>
+
+                <label>Predmet</label>
+                <br>
+                <select name="predmet_id">
+                    <?php foreach($predmeti as $predmet) : ?>
+                        <option value="<?= $predmet->id ?>">
+                            <?= $predmet->naziv ?>
+                        </option>
+                    <?php endforeach ?>
+                </select>
+                
+                <br>
+        
+                <label>Opis</label>
+                <br>
+                <input type="text" name="opis">
+        
+                <br>
+        
+                <label>Datum</label>
+                <br>
+                <input type="datetime-local" name="datum">
+        
+                <br>
+        
+                <label>Rok prijave</label>
+                <br>
+                <input type="datetime-local" name="rok_prijave">
+        
+                <br>
+        
+                <label>Aktivan</label>
+                <br>
+                <input type="checkbox" name="aktivan" checked>
+            </fieldset>
+
             <br>
-
-            <label>Opis:</label>
-            <input type="text" name="opis">
-
-            <br>
-
-            <label>Datum:</label>
-            <input type="datetime-local" name="datum">
-
-            <br>
-
-            <label>Rok prijave:</label>
-            <input type="datetime-local" name="rok_prijave">
-
-            <br>
-
-            <label>Aktivan:</label>
-            <input type="checkbox" name="aktivan" checked>
-
-            <br>
-            <input type="submit" name="novi" value="Potvrdi">
+            <div style="text-align: right;">
+                <input type="submit" name="novi" value="Potvrdi" class="btn green">
+            </div>
         </form>
 
         <?php require("partials/footer.php") ?>

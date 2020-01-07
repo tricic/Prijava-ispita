@@ -7,11 +7,8 @@ Funkcije::zonaZaAdmine();
 
 $ispit_id = $_GET["id"] ?? 0;
 $ispit = Ispit::dohvati("id", $ispit_id);
-
-if (is_null($ispit))
-{
-    header("Location: ispit_lista.php?greska=Ispit_nije_pronađen!");
-}
-
+Funkcije::objekatMoraPostojati($ispit, "ispit_lista.php");
 $ispit->izbrisi();
-header("Location: ispit_lista.php?poruka=Ispit_obrisan.");
+$predmet_naziv = $ispit->predmet()->naziv;
+$poruka = "Ispit obrisan $predmet_naziv - $ispit->opis";
+header("Location: ispit_lista.php?poruka=$poruka");
