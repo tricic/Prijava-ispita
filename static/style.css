@@ -2,16 +2,26 @@ body {
 	max-width: 1024px;
 	margin: auto;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: url("hip-square.png") repeat;
 }
 
 label {
 	font-weight: bold;
 }
 
-input, select {
-	display: inline-block;
-	width: 100%;
+fieldset {
+	border-radius: 4px;
 }
+
+input[type=text], input[type=password], input[type=datetime-local], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
 
 footer {
 	background-color: #008CBA;
@@ -19,6 +29,7 @@ footer {
 	padding: 15px 25px;
 	margin-top: 20px;
 	font-size: 0.8rem;
+	border-radius: 4px;
 }
 
 /* List */
@@ -29,6 +40,7 @@ ul {
 	overflow: hidden;
 	background-color: #008CBA;
 	position: -webkit-sticky;
+	border-radius: 4px;
 	/* Safari */
 	position: sticky;
 	top: 0;
@@ -86,6 +98,7 @@ tr:hover {
 	display: inline-block;
 	font-weight: bold;
 	cursor: pointer;
+	border-radius: 4px;
 }
 
 .btn-small {
