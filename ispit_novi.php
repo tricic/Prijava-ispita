@@ -17,7 +17,8 @@ if (isset($_POST["novi"]))
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->unesi();
-    header("Location: ispit_uredi.php?id=$ispit->id&poruka=Ispit kreiran.");
+    $poruka = "Ispit kreiran.";
+    header("Location: ispit_uredi.php?id=$ispit->id&poruka=$poruka");
 }
 ?>
 <html>

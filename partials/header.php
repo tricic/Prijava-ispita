@@ -22,14 +22,12 @@
     <?php
         if (isset($_GET["greska"]))
         {
-            $greska = str_replace("_", " ", $_GET["greska"]);
-            print "<p class='msg red-border'>$greska</p>";
+            print "<p class='msg red-border'>{$_GET['greska']}</p>";
         }
         
         if (isset($_GET["poruka"]))
         {
-            $poruka = str_replace("_", " ", $_GET["poruka"]);
-            print "<p class='msg'>$poruka</p>";
+            print "<p class='msg blue-border'>{$_GET['poruka']}</p>";
         }
         
         if (empty($greske) == false)

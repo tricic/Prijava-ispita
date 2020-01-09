@@ -10,13 +10,13 @@ if (isset($_POST["promjena_sifre"]))
 
     if (password_verify($stara_sifra, $korisnik->sifra) == false)
     {
-        $greske[] = "Pogrešna stara šifra!";
+        $_GET["poruka"] = "Pogrešna stara šifra!";
     }
     else
     {
         $korisnik->sifra($nova_sifra);
         $korisnik->azuriraj();
-        $_GET["poruka"] = "Šifra promjenjena.";
+        $_GET["poruka"] = "Šifra promijenjena.";
     }
 }
 ?>

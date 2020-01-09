@@ -14,7 +14,8 @@ if (isset($_POST["registracija"]))
     $korisnik->email = $_POST["email"];
     $korisnik->sifra($_POST["sifra"]);
     $korisnik->unesi();
-    header("Location: /korisnik_prijava.php?poruka=Registracija_uspješna._Možete_se_prijaviti.");
+    $poruka = "Registracija uspješna. Možete se prijaviti.";
+    header("Location: /korisnik_prijava.php?poruka=$poruka");
 }
 ?>
 <html>

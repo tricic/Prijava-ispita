@@ -58,7 +58,7 @@ class Funkcije
     {
         if (self::korisnikPrijavljen() == false)
         {
-            header("Location: korisnik_prijava.php?greska=Niste_prijavljeni!");
+            header("Location: korisnik_prijava.php?greska=Niste prijavljeni!");
         }
     }
 
@@ -76,7 +76,7 @@ class Funkcije
 
         if (is_null($korisnik) || $korisnik->rank != "admin")
         {
-            header("Location: index.php?greska=Pristup_zabranjen!");
+            header("Location: index.php?greska=Pristup zabranjen!");
         }
     }
 
