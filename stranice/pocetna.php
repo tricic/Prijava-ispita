@@ -63,7 +63,7 @@ $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavlj
                 <td><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                 <td><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
                 <td>
-                    <a href="?akcija=ispit/prijava&id=<?= $ispit->id ?>&odjava" class="btn btn-small red">Odjavi</a>
+                    <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>" class="btn btn-small red">Odjavi</a>
                 </td>
             </tr>
         <?php endforeach ?>

@@ -73,7 +73,7 @@ if (isset($_POST["izmjena"]))
     Lista prijavljenih (<?= $broj_prijavljenih ?>)
     &nbsp;
     <?php if ($broj_prijavljenih) : ?>
-        <a href="?akcija=ispit/prijava&id=<?= $ispit->id ?>&odjava&kid=svi" class="btn btn-small red">Odjavi sve</a>
+        <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&odjavi_sve" class="btn btn-small red">Odjavi sve</a>
     <?php endif ?>
 </h3>
 <table style="margin-top: 20px;">
@@ -89,7 +89,7 @@ if (isset($_POST["izmjena"]))
                 <td><?= $rbr ?></td>
                 <td><?= $korisnik->ime ?></td>
                 <td><?= $korisnik->prezime ?></td>
-                <td><a href="?akcija=ispit/prijava&id=<?= $ispit->id ?>&odjava&kid=<?= $korisnik->id ?>" class="btn btn-small red">Odjavi</a></td>
+                <td><a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&kid=<?= $korisnik->id ?>" class="btn btn-small red">Odjavi</a></td>
             </tr>
         <?php $rbr++; endforeach ?>
     </tbody>
