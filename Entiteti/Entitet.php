@@ -37,9 +37,9 @@ abstract class Entitet
 
         $sql .= ")";
 
-        $mysqli = Funkcije::mysqli();
+        $mysqli = mysqli();
         $mysqli->query($sql);
-        Funkcije::mysqliProvjera($mysqli, $sql);
+        mysqliProvjera($mysqli, $sql);
         $this->id = $mysqli->insert_id;
         $mysqli->close();
     }
@@ -74,9 +74,9 @@ abstract class Entitet
         $sql = substr($sql, 0, -1); // Izbacuje zarez sa kraja
         $sql .= " WHERE id = {$polja['id']}";
 
-        $mysqli = Funkcije::mysqli();
+        $mysqli = mysqli();
         $mysqli->query($sql);
-        Funkcije::mysqliProvjera($mysqli, $sql);
+        mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 
@@ -86,9 +86,9 @@ abstract class Entitet
         $polja = get_object_vars($this);
         $sql = "DELETE FROM $tabela WHERE id = {$polja['id']}";
     
-        $mysqli = Funkcije::mysqli();
+        $mysqli = mysqli();
         $mysqli->query($sql);
-        Funkcije::mysqliProvjera($mysqli, $sql);
+        mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 
@@ -105,11 +105,11 @@ abstract class Entitet
 
     public static function dohvatiSveGdje(string $kolona, string $vrijednost): array
     {
-        $mysqli = Funkcije::mysqli();
+        $mysqli = mysqli();
         $tabela = static::imeTabele();
         $sql = "SELECT * FROM $tabela WHERE $kolona = '$vrijednost'";
         $result = $mysqli->query($sql);
-        Funkcije::mysqliProvjera($mysqli, $sql);
+        mysqliProvjera($mysqli, $sql);
         $mysqli->close();
 
         $rezNiz = [];

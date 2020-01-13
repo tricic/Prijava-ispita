@@ -23,9 +23,9 @@ class Ispit_Korisnik extends Entitet
         $tabela = static::imeTabele();
         $sql = "DELETE FROM $tabela WHERE ispit_id = {$this->ispit_id} AND korisnik_id = {$this->korisnik_id}";
     
-        $mysqli = Funkcije::mysqli();
+        $mysqli = mysqli();
         $result = $mysqli->query($sql);
-        Funkcije::mysqliProvjera($mysqli, $sql);
+        mysqliProvjera($mysqli, $sql);
         $mysqli->close();
     }
 }

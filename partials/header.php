@@ -7,15 +7,15 @@
     <nav style="margin-bottom: 20px; margin-top: 10px;">
         <ul>
             <li><a href="/">Početna</a></li>
-            <?php if (Funkcije::korisnikPrijavljen()) : ?>
-                <li><a href="korisnik_promjena_sifre.php">Promjena šifre</a></li>
-                <li><a href="korisnik_odjava.php">Odjava</a></li>
+            <?php if (korisnikPrijavljen()) : ?>
+                <li><a href="?akcija=korisnik/promjena_sifre">Promjena šifre</a></li>
+                <li><a href="?akcija=korisnik/odjava">Odjava</a></li>
             <?php else : ?>
-                <li><a href="korisnik_prijava.php">Prijava</a></li>
-                <li><a href="korisnik_registracija.php">Registracija</a></li>
+                <li><a href="?akcija=korisnik/prijava">Prijava</a></li>
+                <li><a href="?akcija=korisnik/registracija">Registracija</a></li>
             <?php endif ?>
         
-            <li><a href="ispit_lista.php">Ispiti</a>
+            <li><a href="?akcija=ispit/lista">Ispiti</a>
         </ul>
     </nav>
 

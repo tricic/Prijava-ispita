@@ -2,9 +2,6 @@
 
 namespace Entiteti;
 
-use Funkcije;
-use GreskeException;
-
 class Korisnik extends Entitet 
 {
     public $id;
