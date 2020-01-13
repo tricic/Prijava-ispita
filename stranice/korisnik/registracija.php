@@ -13,8 +13,8 @@ if (isset($_POST["registracija"]))
     $korisnik->email = $_POST["email"];
     $korisnik->sifra($_POST["sifra"]);
     $korisnik->unesi();
-    $poruka = "Registracija uspješna. Možete se prijaviti.";
-    header("Location: korisnik/prijava.php?poruka=$poruka");
+
+    preusmjeri("korisnik/prijava", ["poruka" => "Registracija uspješna. Možete se prijaviti."]);
 }
 ?>
 <form action="?akcija=korisnik/registracija" method="post">

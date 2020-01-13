@@ -16,8 +16,10 @@ if (isset($_POST["unos"]))
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->unesi();
-    $poruka = "Ispit kreiran.";
-    header("Location: ?akcija=ispit/izmjena&id=$ispit->id&poruka=$poruka");
+    preusmjeri("ispit/izmjena", [
+        "id" => $ispit->id,
+        "poruka" => "Ispit kreiran."
+    ]);
 }
 ?>
 <form action="?akcija=ispit/unos" method="post">

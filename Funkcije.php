@@ -47,7 +47,7 @@ function zonaZaPrijavljene(): void
 {
     if (korisnikPrijavljen() == false)
     {
-        header("Location: ?akcija=korisnik/prijava&greska=Niste prijavljeni!");
+        preusmjeri("korisnik/prijava", ["greska" => "Niste prijavljeni!"]);
     }
 }
 
@@ -55,7 +55,7 @@ function zonaZaNeprijavljene(): void
 {
     if (korisnikPrijavljen())
     {
-        header("Location: index");
+        preusmjeri();
     }
 }
 
@@ -65,14 +65,25 @@ function zonaZaAdmine(): void
 
     if (is_null($korisnik) || $korisnik->rank != "admin")
     {
-        header("Location: index.php?greska=Pristup zabranjen!");
+        preusmjeri("", ["greska" => "Zabranjen pristup!"]);
     }
 }
 
-function objekatMoraPostojati(?object $obj, string $preusmjeri = "", string $poruka = "Greška!")
+function objekatMoraPostojati(?object $obj, string $akcija = "", string $poruka = "Greška!")
 {
     if (is_null($obj))
     {
-        header("Location: $preusmjeri?greska=$poruka");
+        preusmjeri($akcija, ["greska" => $poruka]);
     }
+}
+
+function preusmjeri(string $akcija = "", array $parametri = [])
+{
+    if (empty($akcija))
+    {
+        $akcija = "pocetna";
+    }
+
+    $query = http_build_query($parametri);
+    header("Location: ?akcija=$akcija&$query");
 }

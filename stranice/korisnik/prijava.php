@@ -22,8 +22,7 @@ if (isset($_POST["prijava"]))
     {
         $_SESSION["korisnik_prijavljen"] = true;
         $_SESSION["korisnik_id"] = (int)$korisnik->id;
-        $poruka = "Dobrodošli!";
-        header("Location: index.php?poruka=$poruka");
+        preusmjeri("", ["poruka" => "Dobrodošli!"]);
     }
 }
 ?>
