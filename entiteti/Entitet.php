@@ -3,7 +3,6 @@
 namespace Entiteti;
 
 use \DateTime;
-use \Funkcije;
 use \ReflectionClass;
 
 abstract class Entitet

@@ -9,16 +9,18 @@ Auth::korisnikZona();
 $ispit_id = $_GET["id"] ?? 0;
 $korisnik_id = $_GET["kid"] ?? 0;
 $odjavi_sve = isset($_GET["odjavi_sve"]);
-
 $ispit = Ispit::dohvati("id", $ispit_id);
-objekatMoraPostojati($ispit);
+
+objekatMoraPostojati($ispit, "Ispit nije pronađen.");
 
 if ($korisnik_id) // Odjava korisnika od strane admina
 {
     Auth::adminZona();
 
     $korisnik = Korisnik::dohvati("id", $korisnik_id);
-    objekatMoraPostojati($korisnik);
+    
+    objekatMoraPostojati($korisnik, "Korisnik nije pronađen.");
+    
     $ispit->odjaviKorisnika($korisnik);
 
     preusmjeri("ispit/izmjena", [

@@ -1,7 +1,6 @@
 <?php
 
 namespace Entiteti;
-use \Funkcije;
 
 class Ispit_Korisnik extends Entitet
 {

@@ -6,14 +6,15 @@ use Helpers\Auth;
 
 Auth::adminZona();
 
-$ispit_id = $_GET["id"] ?? 0;
-$ispit = Ispit::dohvati("id", $ispit_id);
+$ispit = Ispit::dohvati("id", $_GET["id"] ?? 0);
+
+objekatMoraPostojati($ispit, "Ispit nije pronađen.");
+
 $predmeti = Predmet::dohvatiSve();
 $prijavljeni_korisnici = $ispit->prijavljeniKorisnici();
 $rbr = 1;
 $broj_prijavljenih = count($prijavljeni_korisnici);
 
-objekatMoraPostojati($ispit);
 
 if (isset($_POST["izmjena"]))
 {

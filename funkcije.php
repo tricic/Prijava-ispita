@@ -26,11 +26,11 @@ function mysqliProvjera(\mysqli $mysqli, string $sql = ""): void
     }
 }
 
-function objekatMoraPostojati(?object $obj, string $akcija = "", string $poruka = "Greška!"): void
+function objekatMoraPostojati(?object $obj, string $poruka = "Objekat ne postoji."): void
 {
     if (is_null($obj))
     {
-        preusmjeri($akcija, ["greska" => $poruka]);
+        throw new Exception($poruka);
     }
 }
 

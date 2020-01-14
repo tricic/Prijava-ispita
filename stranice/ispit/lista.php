@@ -1,5 +1,4 @@
 <?php
-namespace Ispit;
 
 use Entiteti\Ispit;
 use Helpers\Auth;

@@ -18,16 +18,20 @@ $fajl = "stranice/" . $akcija . ".php";
             
             if (file_exists($fajl))
             {
-                include($fajl);
+                try
+                {
+                    include($fajl);
+                }
+                catch (Exception $e)
+                {
+                    $greska = $e->getMessage();
+                    require("partials/greska.php");
+                }
             }
             else
             {
-                ?>
-                    <div style="text-align: center;">
-                        <h1>Greška!</h2>
-                        <p style="font-size: 2em;">Stranica ne postoji!</p>
-                    </div>
-                <?php
+                $greska = "Stranica ne postoji!";
+                require("partials/greska.php");
             }
 
             require("partials/footer.php");

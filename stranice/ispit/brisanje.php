@@ -5,9 +5,9 @@ use Helpers\Auth;
 
 Auth::adminZona();
 
-$ispit_id = $_GET["id"] ?? 0;
-$ispit = Ispit::dohvati("id", $ispit_id);
-objekatMoraPostojati($ispit, "ispit/lista");
+$ispit = Ispit::dohvati("id", $_GET["id"] ?? 0);
+
+objekatMoraPostojati($ispit, "Ispit nije pronađen.");
 
 $ispit->izbrisi();
 
