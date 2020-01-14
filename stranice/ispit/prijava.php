@@ -1,8 +1,9 @@
 <?php
 
 use Entiteti\Ispit;
+use Helpers\Auth;
 
-zonaZaPrijavljene();
+Auth::korisnikZona();
 
 $ispit_id = $_GET["id"] ?? 0;
 $ispit = Ispit::dohvati("id", $ispit_id);
@@ -15,7 +16,7 @@ if ($ispit->rokPrijaveIstekao())
     ]);
 }
 
-$korisnik = prijavljeniKorisnik();
+$korisnik = Auth::prijavljeniKorisnik();
 $ispit->prijaviKorisnika($korisnik);
 
 $naziv_predmeta = $ispit->predmet()->naziv;

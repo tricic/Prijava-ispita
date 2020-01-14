@@ -1,8 +1,9 @@
 <?php
 
 use Entiteti\Ispit;
+use Helpers\Auth;
 
-zonaZaAdmine();
+Auth::adminZona();
 
 $ispit_id = $_GET["id"] ?? 0;
 $ispit = Ispit::dohvati("id", $ispit_id);

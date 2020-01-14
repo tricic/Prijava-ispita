@@ -1,10 +1,12 @@
 <?php
 
-zonaZaPrijavljene();
+use Helpers\Auth;
+
+Auth::korisnikZona();
 
 if (isset($_POST["promjena_sifre"]))
 {
-    $korisnik = prijavljeniKorisnik();
+    $korisnik = Auth::prijavljeniKorisnik();
     $stara_sifra = $_POST["stara_sifra"];
     $nova_sifra = $_POST["nova_sifra"];
     $greska = false;

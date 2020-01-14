@@ -2,8 +2,9 @@
 
 use Entiteti\Ispit;
 use Entiteti\Predmet;
+use Helpers\Auth;
 
-zonaZaAdmine();
+Auth::adminZona();
 
 $predmeti = Predmet::dohvatiSve();
 

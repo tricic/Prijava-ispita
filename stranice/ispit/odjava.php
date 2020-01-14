@@ -2,8 +2,9 @@
 
 use Entiteti\Ispit;
 use Entiteti\Korisnik;
+use Helpers\Auth;
 
-zonaZaPrijavljene();
+Auth::korisnikZona();
 
 $ispit_id = $_GET["id"] ?? 0;
 $korisnik_id = $_GET["kid"] ?? 0;
@@ -14,7 +15,7 @@ objekatMoraPostojati($ispit);
 
 if ($korisnik_id) // Odjava korisnika od strane admina
 {
-    zonaZaAdmine();
+    Auth::adminZona();
 
     $korisnik = Korisnik::dohvati("id", $korisnik_id);
     objekatMoraPostojati($korisnik);
@@ -27,7 +28,7 @@ if ($korisnik_id) // Odjava korisnika od strane admina
 }
 else if ($odjavi_sve) // Odjava svih korisnika od strane admina
 {
-    zonaZaAdmine();
+    Auth::adminZona();
 
     $ispit->odjaviSveKorisnike();
 
@@ -38,7 +39,7 @@ else if ($odjavi_sve) // Odjava svih korisnika od strane admina
 }
 else // Odjava prijavljenog korisnika
 {
-    $korisnik = prijavljeniKorisnik();
+    $korisnik = Auth::prijavljeniKorisnik();
     $ispit->odjaviKorisnika($korisnik);
     
     $naziv_predmeta = $ispit->predmet()->naziv;

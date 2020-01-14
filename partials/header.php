@@ -1,3 +1,7 @@
+<?php
+
+use Helpers\Auth;
+?>
 <header>
     <div style="text-align: center;">
         <p style="font-size: 3rem; font-weight: bold; margin-top: 0px; margin-bottom: 0px;">Prijava ispita</p>
@@ -7,15 +11,17 @@
     <nav style="margin-bottom: 20px; margin-top: 10px;">
         <ul>
             <li><a href="/">Početna</a></li>
-            <?php if (korisnikPrijavljen()) : ?>
-                <li><a href="?akcija=korisnik/promjena_sifre">Promjena šifre</a></li>
-                <li><a href="?akcija=korisnik/odjava">Odjava</a></li>
+            <?php if (Auth::korisnikJePrijavljen()) : ?>
+                <li style="float: right;"><a href="?akcija=korisnik/odjava">Odjava</a></li>
+                <li style="float: right;"><a href="?akcija=korisnik/promjena_sifre">Promjena šifre</a></li>
             <?php else : ?>
-                <li><a href="?akcija=korisnik/prijava">Prijava</a></li>
-                <li><a href="?akcija=korisnik/registracija">Registracija</a></li>
+                <li style="float: right;"><a href="?akcija=korisnik/registracija">Registracija</a></li>
+                <li style="float: right;"><a href="?akcija=korisnik/prijava">Prijava</a></li>
             <?php endif ?>
-        
-            <li><a href="?akcija=ispit/lista">Ispiti</a>
+            
+            <?php if (Auth::korisnikJeAdmin()) : ?>
+                <li><a href="?akcija=ispit/lista">Ispiti</a>
+            <?php endif ?>
         </ul>
     </nav>
 

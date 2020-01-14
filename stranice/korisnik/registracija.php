@@ -1,8 +1,9 @@
 <?php
 
 use Entiteti\Korisnik;
+use Helpers\Auth;
 
-if (korisnikPrijavljen())
+if (Auth::korisnikJePrijavljen())
 {
     preusmjeri("", ["poruka" => "Već ste registrovani i prijavljeni."]);
 }

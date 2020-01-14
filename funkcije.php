@@ -1,7 +1,5 @@
 <?php
 
-use Entiteti\Korisnik;
-
 function mysqli(): mysqli
 {
     $mysqli = new mysqli("localhost", "root", "", "webapp_0173-17");
@@ -28,40 +26,7 @@ function mysqliProvjera(\mysqli $mysqli, string $sql = ""): void
     }
 }
 
-function korisnikPrijavljen(): bool
-{
-    return isset($_SESSION["korisnik_prijavljen"]) && $_SESSION["korisnik_prijavljen"] == true;
-}
-
-function prijavljeniKorisnik(): ?Korisnik
-{
-    if (korisnikPrijavljen() == false)
-    {
-        return null;
-    }
-
-    return Korisnik::dohvati("id", $_SESSION["korisnik_id"]);
-}
-
-function zonaZaPrijavljene(): void
-{
-    if (korisnikPrijavljen() == false)
-    {
-        preusmjeri("korisnik/prijava", ["greska" => "Niste prijavljeni!"]);
-    }
-}
-
-function zonaZaAdmine(): void
-{
-    $korisnik = prijavljeniKorisnik();
-
-    if (is_null($korisnik) || $korisnik->rank != "admin")
-    {
-        preusmjeri("", ["greska" => "Zabranjen pristup!"]);
-    }
-}
-
-function objekatMoraPostojati(?object $obj, string $akcija = "", string $poruka = "Greška!")
+function objekatMoraPostojati(?object $obj, string $akcija = "", string $poruka = "Greška!"): void
 {
     if (is_null($obj))
     {
@@ -69,7 +34,7 @@ function objekatMoraPostojati(?object $obj, string $akcija = "", string $poruka 
     }
 }
 
-function preusmjeri(string $akcija = "", array $parametri = [])
+function preusmjeri(string $akcija = "", array $parametri = []): void
 {
     if (empty($akcija))
     {

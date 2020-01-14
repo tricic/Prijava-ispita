@@ -6,32 +6,34 @@ use Entiteti\Korisnik;
 
 abstract class Auth
 {
-    public static function korisnikPrijavljen(): bool
+    public static function prijavljeniKorisnik(): ?Korisnik
+    {
+        return self::korisnikJePrijavljen() ? Korisnik::dohvati("id", $_SESSION["korisnik_id"]) : null;
+    }
+
+    public static function korisnikJePrijavljen(): bool
     {
         return isset($_SESSION["korisnik_prijavljen"]) && $_SESSION["korisnik_prijavljen"] == true;
     }
 
-    public static function prijavljeniKorisnik(): ?Korisnik
+    public static function korisnikJeAdmin(): bool
     {
-        return self::korisnikPrijavljen() ? Korisnik::dohvati("id", $_SESSION["korisnik_id"]) : null;
+        return self::korisnikJePrijavljen() && self::prijavljeniKorisnik()->rank == "admin";
     }
 
-    public static function zonaKorisnik(): void
+    public static function korisnikZona(string $preusmjeriAkcija = "korisnik/prijava"): void
     {
-        if (self::korisnikPrijavljen() == false)
+        if (self::korisnikJePrijavljen() == false)
         {
-            // TODO
-            header("Location: korisnik/prijava.php?greska=Niste prijavljeni!");
+            preusmjeri($preusmjeriAkcija, ["greska" => "Potrebno je da se prijavite."]);
         }
     }
 
-    public static function zonaAdmin(): void
+    public static function adminZona(string $preusmjeriAkcija = ""): void
     {
-        $korisnik = self::prijavljeniKorisnik();
-        if (is_null($korisnik) || $korisnik->rank != "admin")
+        if (self::korisnikJeAdmin() == false)
         {
-            // TODO
-            header("Location: index.php?greska=Pristup zabranjen!");
+            preusmjeri($preusmjeriAkcija, ["greska" => "Pristup zabranjen!"]);
         }
     }
 }

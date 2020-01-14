@@ -2,8 +2,10 @@
 namespace Ispit;
 
 use Entiteti\Ispit;
+use Helpers\Auth;
 
-zonaZaAdmine();
+Auth::adminZona();
+
 $ispiti = Ispit::dohvatiSve();
 
 $aktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 1);

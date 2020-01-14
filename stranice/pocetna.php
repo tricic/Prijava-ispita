@@ -1,8 +1,9 @@
 <?php
 
 use Entiteti\Ispit;
+use Helpers\Auth;
 
-$korisnik = prijavljeniKorisnik();
+$korisnik = Auth::prijavljeniKorisnik();
 if ($korisnik)
 {
     $prijavljeni_ispiti = $korisnik->prijavljeniIspiti();
