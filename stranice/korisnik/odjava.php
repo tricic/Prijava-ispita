@@ -1,4 +1,6 @@
 <?php
 
 session_destroy();
-preusmjeri();
+
+$poruka = $_GET["poruka"] ?? "Doviđenja!";
+preusmjeri("korisnik/prijava", ["poruka" => $poruka]);

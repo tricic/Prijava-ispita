@@ -51,14 +51,6 @@ function zonaZaPrijavljene(): void
     }
 }
 
-function zonaZaNeprijavljene(): void
-{
-    if (korisnikPrijavljen())
-    {
-        preusmjeri();
-    }
-}
-
 function zonaZaAdmine(): void
 {
     $korisnik = prijavljeniKorisnik();
@@ -86,4 +78,5 @@ function preusmjeri(string $akcija = "", array $parametri = [])
 
     $query = http_build_query($parametri);
     header("Location: ?akcija=$akcija&$query");
+    exit;
 }

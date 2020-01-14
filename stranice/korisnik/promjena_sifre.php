@@ -7,33 +7,49 @@ if (isset($_POST["promjena_sifre"]))
     $korisnik = prijavljeniKorisnik();
     $stara_sifra = $_POST["stara_sifra"];
     $nova_sifra = $_POST["nova_sifra"];
+    $greska = false;
 
+    if (empty($nova_sifra))
+    {
+        $greska = true;
+        $nova_sifra_prazna = true;
+    }
+    
     if (password_verify($stara_sifra, $korisnik->sifra) == false)
     {
-        $_GET["poruka"] = "Pogrešna stara šifra!";
+        $greska = true;
+        $sifra_pogresna = true;
     }
-    else
+
+    if ($greska == false)
     {
         $korisnik->sifra($nova_sifra);
         $korisnik->azuriraj();
-        $_GET["poruka"] = "Šifra promijenjena.";
+        preusmjeri("korisnik/odjava", ["poruka" => "Šifra promijenjena, prijavite se ponovo koristeći novu šifru."]);
     }
 }
 ?>
 <html>
 <form action="?akcija=korisnik/promjena_sifre" method="post">
     <fieldset>
-        <legend>Unesite podatke</legend>
+        <legend>Unos podataka</legend>
 
         <label>Stara šifra</label>
         <br>
         <input type="password" name="stara_sifra">
+        <?php if (isset($sifra_pogresna)) : ?>
+            <div class="red-font smaller-font">Šifra pogrešna.</div>
+        <?php endif ?>
 
         <br>
 
         <label>Nova šifra</label>
-        <br>
         <input type="password" name="nova_sifra">
+        <?php if (isset($nova_sifra_prazna)) : ?>
+            <div class="red-font smaller-font">Šifra ne smije biti prazna.</div>
+        <?php endif ?>
+        
+        <br>
     </fieldset>
 
     <br>

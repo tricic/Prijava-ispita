@@ -2,7 +2,10 @@
 
 use Entiteti\Korisnik;
 
-zonaZaNeprijavljene();
+if (korisnikPrijavljen())
+{
+    preusmjeri("", ["poruka" => "Već ste prijavljeni."]);
+}
 
 if (isset($_POST["prijava"]))
 {
@@ -12,11 +15,11 @@ if (isset($_POST["prijava"]))
 
     if (is_null($korisnik))
     {
-        $_GET["greska"] = "Korisnik ne postoji!";
+        $korisnik_nepostojeci = true;
     }
     else if (password_verify($sifra, $korisnik->sifra) == false)
     {
-        $_GET["greska"] = "Pogrešna šifra!";
+        $sifra_pogresna = true;
     }
     else
     {
@@ -28,17 +31,23 @@ if (isset($_POST["prijava"]))
 ?>
 <form action="?akcija=korisnik/prijava" method="POST">
     <fieldset>
-        <legend>Unesite podatke</legend>
+        <legend>Unos podataka</legend>
 
         <label>Korisničko ime</label>
         <br>
         <input type="text" name="korisnicko_ime" />
+        <?php if (isset($korisnik_nepostojeci)) : ?>
+            <div class="red-font smaller-font">Korisnički račun ne postoji.</div>
+        <?php endif ?>
         
         <br>
         
         <label>Šifra</label>
         <br>
         <input type="password" name="sifra" />
+        <?php if (isset($sifra_pogresna)) : ?>
+            <div class="red-font smaller-font">Šifra pogrešna.</div>
+        <?php endif ?>
     </fieldset>
     
     <br>

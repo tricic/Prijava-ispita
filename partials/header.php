@@ -1,6 +1,6 @@
 <header>
     <div style="text-align: center;">
-        <p style="font-size: 3rem; font-weight: bold; margin-bottom: 0px;">Prijava ispita</p>
+        <p style="font-size: 3rem; font-weight: bold; margin-top: 0px; margin-bottom: 0px;">Prijava ispita</p>
         <p style="font-size: 0.8rem;">Projektni zadatak iz Web programiranja @ IPIA Tuzla</p>
     </div>
 
@@ -28,14 +28,6 @@
         if (isset($_GET["poruka"]))
         {
             print "<p class='msg blue-border'>{$_GET['poruka']}</p>";
-        }
-        
-        if (empty($greske) == false)
-        {
-            foreach ($greske as $greska)
-            {
-                print $greska . "<hr>";
-            }
         }
     ?>
 </header>

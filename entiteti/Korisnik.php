@@ -30,4 +30,34 @@ class Korisnik extends Entitet
 
         return $prijavljeni_ispiti;
     }
+
+    public function validacijaZaUnos(): array
+    {
+        $greske = [];
+
+        foreach (get_object_vars($this) as $prop => $val)
+        {
+            if (empty($val) && $prop != "id")
+            {
+                $greske[] = "Polje $prop je prazno.";
+            }
+        }
+
+        if (self::dohvati("korisnicko_ime", $this->korisnicko_ime))
+        {
+            $greske[] = "Korisničko ime je zauzeto.";
+        }
+
+        if (self::dohvati("email", $this->email))
+        {
+            $greske[] = "Email adresa je povezana sa drugim računom.";
+        }
+
+        if (filter_var($this->email, FILTER_VALIDATE_EMAIL) == false)
+        {
+            $greske[] = "Email adresa nije validna.";
+        }
+
+        return $greske;
+    }
 }

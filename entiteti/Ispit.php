@@ -28,12 +28,19 @@ class Ispit extends Entitet
         return empty($this->rok_prijave) ? null : new DateTime($this->rok_prijave);
     }
 
+    public function datumIstekao(): bool
+    {
+        return new DateTime > $this->datum(); 
+    }
+
+    public function rokPrijaveIstekao(): bool
+    {
+        return new DateTime > $this->rok_prijave(); 
+    }
+
     public function izbrisi(): void
     {
-        // Odjavi sve prijavljene korisnike sa ispita
         $this->odjaviSveKorisnike();
-
-        // Obriši ispit
         parent::izbrisi();
     }
 

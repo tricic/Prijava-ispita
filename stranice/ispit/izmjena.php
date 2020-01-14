@@ -22,6 +22,10 @@ if (isset($_POST["izmjena"]))
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->azuriraj();
+    preusmjeri("ispit/izmjena", [
+        "id" => $ispit->id,
+        "poruka" => "Promjene spremljene."
+    ]);
 }
 ?>
 <form action="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" method="post">
@@ -66,6 +70,7 @@ if (isset($_POST["izmjena"]))
     <br>
     <div style="text-align: right;">
         <input type="submit" name="izmjena" value="Spremi promjene" class="btn green">
+        <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn red">Izbriši ispit</a>
     </div>
 </form>
 

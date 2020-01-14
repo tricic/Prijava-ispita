@@ -2,6 +2,7 @@
 
 spl_autoload_register();
 session_start();
+date_default_timezone_set("Europe/Sarajevo");
 require("funkcije.php");
 
 $akcija = !empty($_GET["akcija"]) ? $_GET["akcija"] : "pocetna";

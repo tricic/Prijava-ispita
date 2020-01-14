@@ -13,6 +13,10 @@ fieldset {
 	border-radius: 4px;
 }
 
+input {
+	font-family: inherit;
+}
+
 input[type=text], input[type=password], input[type=datetime-local], select {
 	width: 100%;
 	padding: 12px 20px;
@@ -21,7 +25,7 @@ input[type=text], input[type=password], input[type=datetime-local], select {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
-  }
+}
 
 footer {
 	background-color: #008CBA;
@@ -92,13 +96,14 @@ tr:hover {
 	background-color: #555555;
 	border: none;
 	color: white;
-	padding: 15px 25px;
+	padding: 15px 20px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
 	font-weight: bold;
 	cursor: pointer;
 	border-radius: 4px;
+	font-size: inherit;
 }
 
 .btn-small {
@@ -127,6 +132,7 @@ tr:hover {
 	padding: 5px 15px;
 	font-weight: bold;
 	border: 1px solid #4b4a4a;
+	border-radius: 4px;
 }
 
 /* Boje bordera */
@@ -138,7 +144,15 @@ tr:hover {
 	border-color: blue;
 }
 
-/* Boje fonta */
+/* Font */
+.smaller-font {
+	font-size: 0.8em;
+}
+
+.bigger-font {
+	font-size: 1.2em;
+}
+
 .red-font {
 	color: #f44336;
 }
