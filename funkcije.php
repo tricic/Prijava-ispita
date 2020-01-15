@@ -2,7 +2,7 @@
 
 function mysqli(): mysqli
 {
-    $mysqli = new mysqli("localhost", "root", "", "webapp_0173-17");
+    $mysqli = new mysqli("localhost", "root", "", "prijava_ispita");
     
     if ($mysqli->connect_errno)
     {
