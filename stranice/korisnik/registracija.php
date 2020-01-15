@@ -32,31 +32,36 @@ if (isset($_POST["registracija"]))
 
         <label>Korisničko ime</label>
         <br>
-        <input type="text" name="korisnicko_ime" value="<?= $korisnik->korisnicko_ime ?? null ?>" />
+        <input type="text" name="korisnicko_ime" value="<?= $korisnik->korisnicko_ime ?? null ?>" onkeyup="validirajInput(this, 'korisnicko_ime_greska')" />
+        <div class="red-font smaller-font" id="korisnicko_ime_greska"></div>
 
         <br>
 
         <label>Email</label>
         <br>
-        <input type="text" name="email" value="<?= $korisnik->email ?? null ?>" />
+        <input type="email" name="email" value="<?= $korisnik->email ?? null ?>" onkeyup="validirajInput(this, 'email_greska')" />
+        <div class="red-font smaller-font" id="email_greska"></div>
 
         <br>
 
         <label>Ime</label>
         <br>
-        <input type="text" name="ime" value="<?= $korisnik->ime ?? null ?>" />
+        <input type="text" name="ime" value="<?= $korisnik->ime ?? null ?>" onkeyup="validirajInput(this, 'ime_greska')" />
+        <div class="red-font smaller-font" id="ime_greska"></div>
 
         <br>
         
         <label>Prezime</label>
         <br>
-        <input type="text" name="prezime" value="<?= $korisnik->prezime ?? null ?>" />
+        <input type="text" name="prezime" value="<?= $korisnik->prezime ?? null ?>" onkeyup="validirajInput(this, 'prezime_greska')" />
+        <div class="red-font smaller-font" id="prezime_greska"></div>
 
         <br>
 
         <label>Šifra</label>
         <br>
-        <input type="password" name="sifra" />
+        <input type="password" name="sifra" onkeyup="validirajInput(this, 'sifra_greska')" />
+        <div class="red-font smaller-font" id="sifra_greska"></div>
 
         <?php
             if (empty($greske) == false) : 

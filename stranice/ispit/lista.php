@@ -13,7 +13,8 @@ $neaktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 0);
 <a href="?akcija=ispit/unos" class="btn green">Novi ispit</a>
 
 <h3>Aktivni ispiti:</h3>
-<table style="margin-top: 20px;">
+<input type="text" onkeyup="filtrirajTabelu(this, 'aktivni_ispiti')" placeholder="Filtriraj tabelu...">
+<table style="margin-top: 20px;" id="aktivni_ispiti">
     <thead>
         <th style="width: 1%;">God.</th>
         <th style="width: 1%;">Sem.</th>
@@ -48,8 +49,11 @@ $neaktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 0);
     </tbody>
 </table>
 
+<br>
+
 <h3>Neaktivni ispiti:</h3>
-<table style="margin-top: 20px;">
+<input type="text" onkeyup="filtrirajTabelu(this, 'neaktivni_ispiti')" placeholder="Filtriraj tabelu...">
+<table style="margin-top: 20px;" id="neaktivni_ispiti">
     <thead>
         <th style="width: 1%;">God.</th>
         <th style="width: 1%;">Sem.</th>

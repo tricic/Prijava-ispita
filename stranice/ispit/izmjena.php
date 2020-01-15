@@ -83,7 +83,8 @@ if (isset($_POST["izmjena"]))
         <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&odjavi_sve" class="btn btn-small red">Odjavi sve</a>
     <?php endif ?>
 </h3>
-<table style="margin-top: 20px;">
+<input type="text" onkeyup="filtrirajTabelu(this, 'tabela_prijavljenih')" placeholder="Filtriraj tabelu...">
+<table style="margin-top: 20px;" id="tabela_prijavljenih">
     <thead>
         <th style="width: 5%;">R.br.</th>
         <th style="width: 35%;">Ime</th>

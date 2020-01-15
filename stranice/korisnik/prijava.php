@@ -36,19 +36,15 @@ if (isset($_POST["prijava"]))
 
         <label>Korisničko ime</label>
         <br>
-        <input type="text" name="korisnicko_ime" />
-        <?php if (isset($korisnik_nepostojeci)) : ?>
-            <div class="red-font smaller-font">Korisnički račun ne postoji.</div>
-        <?php endif ?>
+        <input type="text" name="korisnicko_ime" id="korisnicko_ime" onkeyup="validirajInput(this, 'korisnicko_ime_greska')" />
+        <div class="red-font smaller-font" id="korisnicko_ime_greska"><?= isset($korisnik_nepostojeci) ? "Korisnički račun ne postoji." : null ?></div>
         
         <br>
         
         <label>Šifra</label>
         <br>
-        <input type="password" name="sifra" />
-        <?php if (isset($sifra_pogresna)) : ?>
-            <div class="red-font smaller-font">Šifra pogrešna.</div>
-        <?php endif ?>
+        <input type="password" name="sifra" onkeyup="validirajInput(this, 'sifra_greska')" />
+        <div class="red-font smaller-font" id="sifra_greska"><?= isset($sifra_pogresna) ? "Pogrešna šifra." : null ?></div>
     </fieldset>
     
     <br>
