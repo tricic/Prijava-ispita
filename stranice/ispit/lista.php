@@ -39,7 +39,7 @@ $neaktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 0);
                 <td><?= $ispit->opis ?></td>
                 <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                 <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
-                <td><?= count($ispit->prijavljeniKorisnici()) ?>
+                <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                 <td>
                     <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-small blue">Pogledaj</a>
                     <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-small red">Izbriši</a>
@@ -78,7 +78,7 @@ $neaktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 0);
                 <td><?= $ispit->opis ?></td>
                 <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                 <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
-                <td><?= count($ispit->prijavljeniKorisnici()) ?>
+                <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                 <td>
                     <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-small blue">Pogledaj</a>
                     <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-small red">Izbriši</a>

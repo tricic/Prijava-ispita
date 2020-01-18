@@ -22,6 +22,8 @@ if (isset($_POST["izmjena"]))
     $ispit->opis = $_POST["opis"];
     $ispit->datum = str_replace("T", " ", $_POST["datum"]);
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
+    $ispit->max_korisnika = $_POST["max_korisnika"];
+    $ispit->max_bodova = $_POST["max_bodova"];
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->azuriraj();
     preusmjeri("ispit/izmjena", [
@@ -64,6 +66,16 @@ if (isset($_POST["izmjena"]))
 
         <br>
 
+        <label>Maksimalno prijavljenih korisnika</label>
+        <input type="number" name="max_korisnika" value="<?= $ispit->max_korisnika ?>">
+
+        <br>
+
+        <label>Maksimalan broj bodova</label>
+        <input type="number" name="max_bodova" value="<?= $ispit->max_bodova ?>">
+
+        <br>
+
         <label>Aktivan</label>
         <br>
         <input type="checkbox" name="aktivan" <?= $ispit->aktivan ? "checked" : null ?>>
@@ -77,7 +89,7 @@ if (isset($_POST["izmjena"]))
 </form>
 
 <h3>
-    Lista prijavljenih (<?= $broj_prijavljenih ?>)
+    Lista prijavljenih (<?= $broj_prijavljenih . "/" . $ispit->max_korisnika ?>)
     &nbsp;
     <?php if ($broj_prijavljenih) : ?>
         <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&odjavi_sve" class="btn btn-small red">Odjavi sve</a>

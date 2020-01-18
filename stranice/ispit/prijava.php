@@ -9,14 +9,17 @@ $ispit = Ispit::dohvati("id", $_GET["id"] ?? 0);
 
 objekatMoraPostojati($ispit, "Ispit nije pronađen.");
 
-if ($ispit->rokPrijaveIstekao())
+$korisnik = Auth::prijavljeniKorisnik();
+$greske = $ispit->validacijaZaPrijavu($korisnik);
+
+if ($greske)
 {
+    // FIXME
     preusmjeri("", [
-        "greska" => "Nedozvoljena prijava na ispit - rok prijave istekao."
+        "greska" => $greske[0]
     ]);
 }
 
-$korisnik = Auth::prijavljeniKorisnik();
 $ispit->prijaviKorisnika($korisnik);
 
 $naziv_predmeta = $ispit->predmet()->naziv;

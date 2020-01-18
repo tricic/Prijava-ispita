@@ -15,6 +15,8 @@ if (isset($_POST["unos"]))
     $ispit->opis = $_POST["opis"];
     $ispit->datum = str_replace("T", " ", $_POST["datum"]);
     $ispit->rok_prijave = str_replace("T", " ", $_POST["rok_prijave"]);
+    $ispit->max_korisnika = $_POST["max_korisnika"];
+    $ispit->max_bodova = $_POST["max_bodova"];
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->unesi();
     preusmjeri("ispit/izmjena", [
@@ -54,6 +56,16 @@ if (isset($_POST["unos"]))
         <label>Rok prijave</label>
         <br>
         <input type="datetime-local" name="rok_prijave">
+
+        <br>
+
+        <label>Maksimalno prijavljenih korisnika</label>
+        <input type="number" name="max_korisnika">
+
+        <br>
+
+        <label>Maksimalan broj bodova</label>
+        <input type="number" name="max_bodova">
 
         <br>
 

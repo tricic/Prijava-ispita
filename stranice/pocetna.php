@@ -23,12 +23,15 @@ if ($korisnik)
         <thead>
             <th style="width: 1%;">God.</th>
             <th style="width: 1%;">Sem.</th>
-            <th style="width: 35%;">Predmet</th>
+            <th style="width: 30%;">Predmet</th>
             <th>Opis</th>
+            <th style="width: 1%;" title="Maksimalno bodova">B</th>
             <th style="width: 13%;">Rok prijave</th>
             <th style="width: 13%;">Datum ispita</th>
+            <th style="width: 1%;">Br. prijava</th>
             <th style="width: 5%;">Opcije</th>
         </thead>
+        
         <tbody>
             <?php foreach ($aktivni_ispiti as $ispit) : ?>
                 <?php
@@ -41,8 +44,10 @@ if ($korisnik)
                     <td><?= $predmet->semestar ?></td>
                     <td><?= $predmet->naziv ?></td>
                     <td><?= $ispit->opis ?></td>
+                    <td><?= $ispit->max_bodova ?></td>
                     <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                     <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                    <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                     <td>
                         <a href="?akcija=ispit/prijava&id=<?= $ispit->id ?>" class="btn btn-small green">Prijavi</a>
                     </td>
@@ -56,10 +61,12 @@ if ($korisnik)
         <thead>
             <th style="width: 1%;">God.</th>
             <th style="width: 1%;">Sem.</th>
-            <th style="width: 35%;">Predmet</th>
+            <th style="width: 30%;">Predmet</th>
             <th>Opis</th>
+            <th style="width: 1%;" title="Maksimalno bodova">B</th>
             <th style="width: 13%;">Rok prijave</th>
             <th style="width: 13%;">Datum ispita</th>
+            <th style="width: 1%;">Br. prijava</th>
             <th style="width: 5%;">Opcije</th>
         </thead>
         <tbody>
@@ -74,8 +81,10 @@ if ($korisnik)
                     <td><?= $predmet->semestar ?></td>
                     <td><?= $predmet->naziv ?></td>
                     <td><?= $ispit->opis ?></td>
+                    <td><?= $ispit->max_bodova ?></td>
                     <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
                     <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                    <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                     <td>
                         <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>" class="btn btn-small red">Odjavi</a>
                     </td>

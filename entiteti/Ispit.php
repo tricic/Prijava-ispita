@@ -11,6 +11,8 @@ class Ispit extends Entitet
     public $opis;
     public $datum;
     public $rok_prijave;
+    public $max_korisnika;
+    public $max_bodova;
     public $aktivan;
 
     public function predmet(): ?Predmet
@@ -42,6 +44,29 @@ class Ispit extends Entitet
     {
         $this->odjaviSveKorisnike();
         parent::izbrisi();
+    }
+
+    public function validacijaZaPrijavu(Korisnik $korisnik):  array
+    {
+        $greske = [];
+        $broj_prijavljenih = count($this->prijavljeniKorisnici());
+
+        if ($broj_prijavljenih >= $this->max_korisnika)
+        {
+            $greske[] = "Dostignut maksimalan broj mogućih prijava.";
+        }
+
+        if (in_array($this, $korisnik->prijavljeniIspiti()))
+        {
+            $greske[] = "Već ste prijavljeni na ispit.";
+        }
+
+        if ($this->rokPrijaveIstekao())
+        {
+            $greske[] = "Rok prijave je istekao.";
+        }
+
+        return $greske;
     }
 
     public function prijaviKorisnika(Korisnik $korisnik): void
