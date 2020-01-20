@@ -1,36 +1,35 @@
 <?php
 
-function mysqli(): mysqli
+function pdo(): PDO
 {
-    $mysqli = new mysqli("localhost", "root", "", "prijava_ispita");
+    static $pdo;
+
+    if (is_null($pdo))
+    {
+        $host = "localhost";
+        $db   = 'prijava_ispita';
+        $user = "root";
+        $pass = "";
+        $charset = "utf8";
+        
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_CLASS,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        $pdo = new PDO($dsn, $user, $pass, $options);
+    }
     
-    if ($mysqli->connect_errno)
-    {
-        throw new Exception("Greška u povezivanju baze: " . $mysqli->connect_error);
-    }
-
-    if ($mysqli->ping() == false)
-    {
-        throw new Exception("Greška s konekcijom baze: " . $mysqli->error);
-    }
-
-    $mysqli->set_charset("utf8");
-    return $mysqli;
-}
-
-function mysqliProvjera(\mysqli $mysqli, string $sql = ""): void
-{
-    if ($mysqli->errno)
-    {
-        throw new Exception($mysqli->error . " SQL($sql)");
-    }
+    return $pdo;
 }
 
 function objekatMoraPostojati(?object $obj, string $poruka = "Objekat ne postoji."): void
 {
     if (is_null($obj))
     {
-        throw new Exception($poruka);
+        throw new RuntimeException($poruka);
     }
 }
 

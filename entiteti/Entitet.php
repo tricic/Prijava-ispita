@@ -36,11 +36,8 @@ abstract class Entitet
 
         $sql .= ")";
 
-        $mysqli = mysqli();
-        $mysqli->query($sql);
-        mysqliProvjera($mysqli, $sql);
-        $this->id = $mysqli->insert_id;
-        $mysqli->close();
+        pdo()->query($sql);
+        $this->id = pdo()->lastInsertId();
     }
 
     public function azuriraj(): void
@@ -73,10 +70,7 @@ abstract class Entitet
         $sql = substr($sql, 0, -1); // Izbacuje zarez sa kraja
         $sql .= " WHERE id = {$polja['id']}";
 
-        $mysqli = mysqli();
-        $mysqli->query($sql);
-        mysqliProvjera($mysqli, $sql);
-        $mysqli->close();
+        pdo()->query($sql);
     }
 
     public function izbrisi(): void
@@ -85,10 +79,7 @@ abstract class Entitet
         $polja = get_object_vars($this);
         $sql = "DELETE FROM $tabela WHERE id = {$polja['id']}";
     
-        $mysqli = mysqli();
-        $mysqli->query($sql);
-        mysqliProvjera($mysqli, $sql);
-        $mysqli->close();
+        pdo()->query($sql);
     }
 
     public static function dohvati(string $naziv_kolone = "id", string $id): ?object
@@ -104,20 +95,16 @@ abstract class Entitet
 
     public static function dohvatiSveGdje(string $kolona, string $vrijednost): array
     {
-        $mysqli = mysqli();
         $tabela = static::imeTabele();
         $sql = "SELECT * FROM $tabela WHERE $kolona = '$vrijednost'";
-        $result = $mysqli->query($sql);
-        mysqliProvjera($mysqli, $sql);
-        $mysqli->close();
+        $stmt = pdo()->query($sql);
 
         $rezNiz = [];
-        while ($obj = $result->fetch_object(static::class))
+        while ($obj = $stmt->fetchObject(static::class))
         {
             $rezNiz[] = $obj;
         }
         
-        $result->close();
         return $rezNiz;
     }
 
