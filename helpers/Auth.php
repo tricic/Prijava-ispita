@@ -25,7 +25,8 @@ abstract class Auth
     {
         if (self::korisnikJePrijavljen() == false)
         {
-            preusmjeri($preusmjeriAkcija, ["greska" => "Potrebno je da se prijavite."]);
+            nova_greska("Potrebno je da se prijavite.");
+            preusmjeri($preusmjeriAkcija);
         }
     }
 
@@ -33,7 +34,8 @@ abstract class Auth
     {
         if (self::korisnikJeAdmin() == false)
         {
-            preusmjeri($preusmjeriAkcija, ["greska" => "Pristup zabranjen!"]);
+            nova_greska("Pristup zabranjen!");
+            preusmjeri($preusmjeriAkcija);
         }
     }
 }

@@ -26,10 +26,8 @@ if (isset($_POST["izmjena"]))
     $ispit->max_bodova = $_POST["max_bodova"];
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->azuriraj();
-    preusmjeri("ispit/izmjena", [
-        "id" => $ispit->id,
-        "poruka" => "Promjene spremljene."
-    ]);
+    nova_poruka("Promjene spremljene.");
+    preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 ?>
 <form action="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" method="post">

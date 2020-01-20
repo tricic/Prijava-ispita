@@ -11,6 +11,5 @@ objekatMoraPostojati($ispit, "Ispit nije pronađen.");
 
 $ispit->izbrisi();
 
-preusmjeri("ispit/lista", [
-    "poruka" => "Ispit obrisan " . $ispit->predmet()->naziv . " - $ispit->opis."
-]);
+nova_poruka("Ispit obrisan " . $ispit->predmet()->naziv . " - $ispit->opis.");
+preusmjeri("ispit/lista");

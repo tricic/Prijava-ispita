@@ -14,15 +14,12 @@ $greske = $ispit->validacijaZaPrijavu($korisnik);
 
 if ($greske)
 {
-    // FIXME
-    preusmjeri("", [
-        "greska" => $greske[0]
-    ]);
+    nova_greska($greske);
+    preusmjeri("");
 }
 
 $ispit->prijaviKorisnika($korisnik);
 
 $naziv_predmeta = $ispit->predmet()->naziv;
-preusmjeri("", [
-    "poruka" => "Prijavljeni ste na ispit $naziv_predmeta - $ispit->opis. Sretno!"
-]);
+nova_poruka("Prijavljeni ste na ispit $naziv_predmeta - $ispit->opis. Sretno!");
+preusmjeri("");

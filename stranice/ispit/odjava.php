@@ -23,10 +23,8 @@ if ($korisnik_id) // Odjava korisnika od strane admina
     
     $ispit->odjaviKorisnika($korisnik);
 
-    preusmjeri("ispit/izmjena", [
-        "id" => $ispit->id,
-        "poruka" => "Korisnik $korisnik->ime $korisnik->prezime je odjavljen sa ispita."
-    ]);
+    nova_poruka("Korisnik $korisnik->ime $korisnik->prezime je odjavljen sa ispita.");
+    preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 else if ($odjavi_sve) // Odjava svih korisnika od strane admina
 {
@@ -34,10 +32,8 @@ else if ($odjavi_sve) // Odjava svih korisnika od strane admina
 
     $ispit->odjaviSveKorisnike();
 
-    preusmjeri("ispit/izmjena", [
-        "id" => $ispit->id,
-        "poruka" => "Svi korisnici su odjavljeni a ispita."
-    ]);
+    nova_poruka("Svi korisnici su odjavljeni a ispita.");
+    preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 else // Odjava prijavljenog korisnika
 {
@@ -45,7 +41,6 @@ else // Odjava prijavljenog korisnika
     $ispit->odjaviKorisnika($korisnik);
     
     $naziv_predmeta = $ispit->predmet()->naziv;
-    preusmjeri("", [
-        "poruka" => "Odjavljeni ste sa ispita $naziv_predmeta - $ispit->opis."
-    ]);
+    nova_poruka("Odjavljeni ste sa ispita $naziv_predmeta - $ispit->opis.");
+    preusmjeri("");
 }

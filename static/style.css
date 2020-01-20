@@ -27,6 +27,10 @@ input[type=text], input[type=password], input[type=email], input[type=datetime-l
 	box-sizing: border-box;
 }
 
+header {
+	margin-bottom: 15px;
+}
+
 footer {
 	background-color: #008CBA;
 	color: white;
@@ -89,6 +93,11 @@ th {
 
 tr:hover {
 	background-color: rgb(233, 232, 232);
+}
+
+/* Margine */
+.margin-0 {
+	margin: 0px;
 }
 
 /* Button */

@@ -19,10 +19,8 @@ if (isset($_POST["unos"]))
     $ispit->max_bodova = $_POST["max_bodova"];
     $ispit->aktivan = (int)isset($_POST["aktivan"]);
     $ispit->unesi();
-    preusmjeri("ispit/izmjena", [
-        "id" => $ispit->id,
-        "poruka" => "Ispit kreiran."
-    ]);
+    nova_poruka("Ispit kreiran.");
+    preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 ?>
 <form action="?akcija=ispit/unos" method="post">

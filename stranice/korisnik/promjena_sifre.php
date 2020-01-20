@@ -27,7 +27,8 @@ if (isset($_POST["promjena_sifre"]))
     {
         $korisnik->sifra($nova_sifra);
         $korisnik->azuriraj();
-        preusmjeri("korisnik/odjava", ["poruka" => "Šifra promijenjena, prijavite se ponovo koristeći novu šifru."]);
+        nova_poruka("Šifra promijenjena, prijavite se ponovo koristeći novu šifru.");
+        preusmjeri("korisnik/odjava");
     }
 }
 ?>

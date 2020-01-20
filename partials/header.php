@@ -25,15 +25,5 @@ use Helpers\Auth;
         </ul>
     </nav>
 
-    <?php
-        if (isset($_GET["greska"]))
-        {
-            print "<p class='msg red-border'>{$_GET['greska']}</p>";
-        }
-        
-        if (isset($_GET["poruka"]))
-        {
-            print "<p class='msg blue-border'>{$_GET['poruka']}</p>";
-        }
-    ?>
+    <?php require("partials/notifikacije.php") ?>
 </header>

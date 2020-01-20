@@ -5,7 +5,8 @@ use Helpers\Auth;
 
 if (Auth::korisnikJePrijavljen())
 {
-    preusmjeri("", ["poruka" => "Već ste prijavljeni."]);
+    nova_poruka("Već ste prijavljeni.");
+    preusmjeri("");
 }
 
 if (isset($_POST["prijava"]))
@@ -26,7 +27,8 @@ if (isset($_POST["prijava"]))
     {
         $_SESSION["korisnik_prijavljen"] = true;
         $_SESSION["korisnik_id"] = (int)$korisnik->id;
-        preusmjeri("", ["poruka" => "Dobrodošli!"]);
+        nova_poruka("Dobrodošli!");
+        preusmjeri("");
     }
 }
 ?>

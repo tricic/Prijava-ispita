@@ -8,6 +8,13 @@ require("funkcije.php");
 $akcija = !empty($_GET["akcija"]) ? $_GET["akcija"] : "pocetna";
 $fajl = "stranice/" . $akcija . ".php";
 
+// Napravi prenesene varijable
+foreach ($_SESSION["prenesene_varijable"] ?? [] as $key => $value)
+{
+    $$key = $value;
+}
+unset($_SESSION["prenesene_varijable"]);
+
 ?>
 <html>
     <?php require("partials/head.php") ?>

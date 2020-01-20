@@ -5,7 +5,8 @@ use Helpers\Auth;
 
 if (Auth::korisnikJePrijavljen())
 {
-    preusmjeri("", ["poruka" => "Već ste registrovani i prijavljeni."]);
+    nova_poruka("Već ste registrovani i prijavljeni.");
+    preusmjeri("");
 }
 
 if (isset($_POST["registracija"]))
@@ -18,11 +19,17 @@ if (isset($_POST["registracija"]))
     $korisnik->sifra($_POST["sifra"]);
 
     $greske = $korisnik->validacijaZaUnos();
-    
+
     if (empty($greske))
     {
         $korisnik->unesi();
-        preusmjeri("korisnik/prijava", ["poruka" => "Registracija uspješna. Možete se prijaviti."]);
+        nova_poruka("Registracija uspješna. Možete se prijaviti.");
+        preusmjeri("korisnik/prijava");
+    }
+    else
+    {
+        nova_greska($greske);
+        preusmjeri("korisnik/registracija");
     }
 }
 ?>
@@ -62,16 +69,6 @@ if (isset($_POST["registracija"]))
         <br>
         <input type="password" name="sifra" onkeyup="validirajInput(this, 'sifra_greska')" />
         <div class="red-font smaller-font" id="sifra_greska"></div>
-
-        <?php
-            if (empty($greske) == false) : 
-            foreach ($greske as $greska) : 
-        ?>
-            <div class="red-font smaller-font"><?= $greska ?></div>
-        <?php
-            endforeach;
-            endif;
-        ?>
     </fieldset>
 
     <br>

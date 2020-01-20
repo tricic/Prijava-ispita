@@ -1,6 +1,7 @@
 <?php
 
-session_destroy();
+session_unset();
 
 $poruka = $_GET["poruka"] ?? "Doviđenja!";
-preusmjeri("korisnik/prijava", ["poruka" => $poruka]);
+nova_poruka($poruka);
+preusmjeri("korisnik/prijava");
