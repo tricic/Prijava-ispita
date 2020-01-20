@@ -31,7 +31,6 @@ if (isset($_POST["promjena_sifre"]))
     }
 }
 ?>
-<html>
 <form action="?akcija=korisnik/promjena_sifre" method="post">
     <fieldset>
         <legend>Unos podataka</legend>
