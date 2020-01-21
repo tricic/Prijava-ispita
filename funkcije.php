@@ -6,20 +6,14 @@ function pdo(): PDO
 
     if (is_null($pdo))
     {
-        $host = "localhost";
-        $db   = 'prijava_ispita';
-        $user = "root";
-        $pass = "";
-        $charset = "utf8";
-        
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = "sqlite:database.sqlite";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_CLASS,
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        $pdo = new PDO($dsn, $user, $pass, $options);
+        $pdo = new PDO($dsn, null, null, $options);
     }
     
     return $pdo;
