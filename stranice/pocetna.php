@@ -7,7 +7,7 @@ $korisnik = Auth::prijavljeniKorisnik();
 if ($korisnik)
 {
     $prijavljeni_ispiti = $korisnik->prijavljeniIspiti();
-    $aktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", "1");
+    $aktivni_ispiti = Ispit::dohvatiSve("aktivan", "1");
     
     // Izbaci prijavljene ispite
     $aktivni_ispiti = array_filter($aktivni_ispiti, function ($ispit) use ($prijavljeni_ispiti) {

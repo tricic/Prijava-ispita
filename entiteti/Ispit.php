@@ -88,7 +88,7 @@ class Ispit extends Entitet
     public function prijavljeniKorisnici(): array
     {
         $prijavljeni_korisnici = [];
-        $ispit_korisnik_rez = Ispit_Korisnik::dohvatiSveGdje("ispit_id", $this->id);
+        $ispit_korisnik_rez = Ispit_Korisnik::dohvatiSve("ispit_id", $this->id);
 
         foreach ($ispit_korisnik_rez as $ispit_korisnik)
         {

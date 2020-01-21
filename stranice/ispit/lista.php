@@ -7,8 +7,8 @@ Auth::adminZona();
 
 $ispiti = Ispit::dohvatiSve();
 
-$aktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 1);
-$neaktivni_ispiti = Ispit::dohvatiSveGdje("aktivan", 0);
+$aktivni_ispiti = Ispit::dohvatiSve("aktivan", 1);
+$neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
 ?>
 <a href="?akcija=ispit/unos" class="btn green">Novi ispit</a>
 

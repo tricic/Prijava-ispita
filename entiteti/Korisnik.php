@@ -21,7 +21,7 @@ class Korisnik extends Entitet
     public function prijavljeniIspiti(): array
     {
         $prijavljeni_ispiti = [];
-        $ispit_korisnik_rez = Ispit_Korisnik::dohvatiSveGdje("korisnik_id", $this->id);
+        $ispit_korisnik_rez = Ispit_Korisnik::dohvatiSve("korisnik_id", $this->id);
 
         foreach ($ispit_korisnik_rez as $ispit_korisnik)
         {

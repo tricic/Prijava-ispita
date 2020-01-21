@@ -84,19 +84,20 @@ abstract class Entitet
 
     public static function dohvati(string $naziv_kolone = "id", string $id): ?object
     {
-        $rez = static::dohvatiSveGdje($naziv_kolone, $id);
+        $rez = static::dohvatiSve($naziv_kolone, $id);
         return $rez[0] ?? null;
     }
 
-    public static function dohvatiSve(): array
-    {
-        return static::dohvatiSveGdje("1", "1");
-    }
-
-    public static function dohvatiSveGdje(string $kolona, string $vrijednost): array
+    public static function dohvatiSve(string $kolona = "", string $vrijednost = ""): array
     {
         $tabela = static::imeTabele();
-        $sql = "SELECT * FROM $tabela WHERE $kolona = '$vrijednost'";
+        
+        $sql = "SELECT * FROM $tabela";
+        if (empty($kolona) == false)
+        {
+            $sql .= " WHERE $kolona = '$vrijednost'";
+        }
+
         $stmt = pdo()->query($sql);
 
         $rezNiz = [];
