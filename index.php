@@ -28,14 +28,14 @@ echo "<html>";
 
 require("partials/head.php");
 
-echo "<body>";
-
+echo "<body class='container'>";
 
 if (file_exists($fajl))
 {
     try
     {
         require("partials/header.php");
+        echo "<main>";
         include($fajl);
     }
     catch (Exception $e)
@@ -49,6 +49,8 @@ else
     $greska = "Stranica ne postoji!";
     require("partials/greska.php");
 }
+
+echo "</main>";
 
 require("partials/footer.php");
 

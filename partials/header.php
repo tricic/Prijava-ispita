@@ -3,24 +3,40 @@
 use Helpers\Auth;
 ?>
 <header>
-    <div style="text-align: center;">
-        <p style="font-size: 3rem; font-weight: bold; margin-top: 0px; margin-bottom: 0px;">Prijava ispita</p>
-        <p style="font-size: 0.8rem;">Projektni zadatak iz Web programiranja @ IPIA Tuzla</p>
+    <div class="text-center">
+        <p class="font-weight-bold" style="font-size: 3rem;">Prijava ispita</p>
+        <p class="small">Projektni zadatak iz Web programiranja @ IPIA Tuzla</p>
     </div>
 
-    <nav style="margin-bottom: 20px; margin-top: 10px;">
-        <ul>
-            <li><a href="/">Početna</a></li>
-            <?php if (Auth::korisnikJePrijavljen()) : ?>
-                <li style="float: right;"><a href="?akcija=korisnik/odjava">Odjava</a></li>
-                <li style="float: right;"><a href="?akcija=korisnik/promjena_sifre">Promjena šifre</a></li>
-            <?php else : ?>
-                <li style="float: right;"><a href="?akcija=korisnik/registracija">Registracija</a></li>
-                <li style="float: right;"><a href="?akcija=korisnik/prijava">Prijava</a></li>
-            <?php endif ?>
-            
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-0 px-2 mb-3">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Početna</a>
+            </li>
+
             <?php if (Auth::korisnikJeAdmin()) : ?>
-                <li><a href="?akcija=ispit/lista">Ispiti</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="?akcija=ispit/lista">Ispiti</a>
+                </li>
+            <?php endif ?>
+        </ul>
+        <ul class="navbar-nav">
+            <?php if (Auth::korisnikJePrijavljen()) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?akcija=korisnik/promjena_sifre">Promjena šifre</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="?akcija=korisnik/odjava">Odjava</a>
+                </li>
+            <?php else : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?akcija=korisnik/registracija">Registracija</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="?akcija=korisnik/prijava">Prijava</a>
+                </li>
             <?php endif ?>
         </ul>
     </nav>

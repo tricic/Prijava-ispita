@@ -17,11 +17,14 @@ if (isset($_POST["prijava"]))
 
     if (is_null($korisnik))
     {
-        $korisnik_nepostojeci = true;
+        nova_greska("Korisnički račun ne postoji!");
+        preusmjeri("korisnik/prijava");
+
     }
     else if (password_verify($sifra, $korisnik->sifra) == false)
     {
-        $sifra_pogresna = true;
+        nova_greska("Pogrešna šifra!");
+        preusmjeri("korisnik/prijava");
     }
     else
     {
@@ -32,25 +35,18 @@ if (isset($_POST["prijava"]))
     }
 }
 ?>
-<form action="?akcija=korisnik/prijava" method="POST">
-    <fieldset>
-        <legend>Unos podataka</legend>
-
-        <label>Korisničko ime</label>
-        <br>
-        <input type="text" name="korisnicko_ime" id="korisnicko_ime" onkeyup="validirajInput(this, 'korisnicko_ime_greska')" />
-        <div class="red-font smaller-font" id="korisnicko_ime_greska"><?= isset($korisnik_nepostojeci) ? "Korisnički račun ne postoji." : null ?></div>
-        
-        <br>
-        
-        <label>Šifra</label>
-        <br>
-        <input type="password" name="sifra" onkeyup="validirajInput(this, 'sifra_greska')" />
-        <div class="red-font smaller-font" id="sifra_greska"><?= isset($sifra_pogresna) ? "Pogrešna šifra." : null ?></div>
-    </fieldset>
+<fieldset class="mb-3">
+    <form action="?akcija=korisnik/prijava" method="POST">
+        <div class="form-group">
+            <label>Korisničko ime</label>
+            <input type="text" name="korisnicko_ime" class="form-control">
+        </div>
     
-    <br>
-    <div style="text-align: right;">
-        <input type="submit" name="prijava" value="Potvrdi" class="btn green">
-    </div>
-</form>
+        <div class="form-group">
+            <label>Šifra</label>
+            <input type="password" name="sifra" class="form-control">
+        </div>
+        
+        <input type="submit" name="prijava" value="Potvrdi" class="btn btn-success">
+    </form>
+</fieldset>

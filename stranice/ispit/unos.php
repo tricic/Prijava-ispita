@@ -23,57 +23,49 @@ if (isset($_POST["unos"]))
     preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 ?>
-<form action="?akcija=ispit/unos" method="post">
-    <fieldset>
-        <legend>Podaci ispita</legend>
-
-        <label>Predmet</label>
-        <br>
-        <select name="predmet_id">
-            <?php foreach($predmeti as $predmet) : ?>
-                <option value="<?= $predmet->id ?>">
-                    <?= $predmet->naziv ?>
-                </option>
-            <?php endforeach ?>
-        </select>
+<fieldset class="mb-4">
+    <form action="?akcija=ispit/unos" method="POST">
+        <div class="form-group">
+            <label>Predmet</label>
+            <select name="predmet_id" class="form-control">
+                <?php foreach($predmeti as $predmet) : ?>
+                    <option value="<?= $predmet->id ?>">
+                        <?= $predmet->naziv ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </div>
         
-        <br>
+        <div class="form-group">
+            <label>Opis</label>
+            <input type="text" name="opis" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label>Datum</label>
+            <input type="datetime-local" name="datum" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label>Rok prijave</label>
+            <input type="datetime-local" name="rok_prijave" class="form-control">
+        </div>
 
-        <label>Opis</label>
-        <br>
-        <input type="text" name="opis">
+        <div class="form-group">
+            <label>Maksimalno prijavljenih korisnika</label>
+            <input type="number" name="max_korisnika" class="form-control">
+        </div>
 
-        <br>
+        <div class="form-group">
+            <label>Maksimalan broj bodova</label>
+            <input type="number" name="max_bodova" class="form-control">
+        </div>
 
-        <label>Datum</label>
-        <br>
-        <input type="datetime-local" name="datum">
-
-        <br>
-
-        <label>Rok prijave</label>
-        <br>
-        <input type="datetime-local" name="rok_prijave">
-
-        <br>
-
-        <label>Maksimalno prijavljenih korisnika</label>
-        <input type="number" name="max_korisnika">
-
-        <br>
-
-        <label>Maksimalan broj bodova</label>
-        <input type="number" name="max_bodova">
-
-        <br>
-
-        <label>Aktivan</label>
-        <br>
-        <input type="checkbox" name="aktivan" checked>
-    </fieldset>
-
-    <br>
-    <div style="text-align: right;">
-        <input type="submit" name="unos" value="Potvrdi" class="btn green">
-    </div>
-</form>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="aktivan" id="aktivan_checkbox" checked>
+            <label class="form-check-label" for="aktivan_checkbox">Aktivan</label>
+        </div>
+        
+        <input type="submit" name="unos" value="Potvrdi" class="btn btn-success">
+    </form>
+</fieldset>

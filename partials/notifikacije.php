@@ -1,19 +1,15 @@
 <?php if (empty($poruke) == false) : ?>
-    <fieldset class="blue-border">
-        <legend>Poruke</legend>
-
+    <ul class="alert alert-primary">
         <?php foreach ($poruke as $poruka) : ?>
-            <p class="margin-0"><?= $poruka ?></p>
+            <li class="ml-3"><?= $poruka ?></li>
         <?php endforeach ?>
-    </fieldset>
+    </ul>
 <?php endif ?>
 
 <?php if (empty($greske) == false) : ?>
-    <fieldset class="red-border">
-        <legend>Greške</legend>
-
+    <ul class="alert alert-danger">
         <?php foreach ($greske as $greska) : ?>
-            <p class="margin-0"><?= $greska ?></p>
+            <li class="ml-3"><?= $greska ?></li>
         <?php endforeach ?>
-    </fieldset>
+    </ul>
 <?php endif ?>

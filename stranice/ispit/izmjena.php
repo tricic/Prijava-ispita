@@ -30,85 +30,82 @@ if (isset($_POST["izmjena"]))
     preusmjeri("ispit/izmjena", ["id" => $ispit->id]);
 }
 ?>
-<form action="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" method="post">
-    <fieldset>
-        <legend>Podaci ispita</legend>
-
-        <label>Predmet</label>
-        <br>
-        <select name="predmet_id">
-            <?php foreach($predmeti as $predmet) : ?>
-                <option value="<?= $predmet->id ?>" <?= $predmet->id == $ispit->predmet_id ? "selected" : null ?>>
-                    <?= $predmet->naziv ?>
-                </option>
-            <?php endforeach ?>
-        </select>
+<fieldset class="mb-4">
+    <form action="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" method="POST">
+        <div class="form-group">
+            <label>Predmet</label>
+            <select name="predmet_id" class="form-control">
+                <?php foreach($predmeti as $predmet) : ?>
+                    <option value="<?= $predmet->id ?>" <?= $predmet->id == $ispit->predmet_id ? "selected" : null ?>>
+                        <?= $predmet->naziv ?>
+                    </option>
+                <?php endforeach ?>
+            </select>
+        </div>
         
-        <br>
+        <div class="form-group">
+            <label>Opis</label>
+            <input type="text" name="opis" value="<?= $ispit->opis ?>" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label>Datum</label>
+            <input type="datetime-local" name="datum" value="<?= str_replace(" ", "T", $ispit->datum) ?>" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label>Rok prijave</label>
+            <input type="datetime-local" name="rok_prijave" value="<?= str_replace(" ", "T", $ispit->rok_prijave) ?>" class="form-control">
+        </div>
 
-        <label>Opis</label>
-        <br>
-        <input type="text" name="opis" value="<?= $ispit->opis ?>">
+        <div class="form-group">
+            <label>Maksimalno prijavljenih korisnika</label>
+            <input type="number" name="max_korisnika" value="<?= $ispit->max_korisnika ?>" class="form-control">
+        </div>
 
-        <br>
+        <div class="form-group">
+            <label>Maksimalan broj bodova</label>
+            <input type="number" name="max_bodova" value="<?= $ispit->max_bodova ?>" class="form-control">
+        </div>
 
-        <label>Datum</label>
-        <br>
-        <input type="datetime-local" name="datum" value="<?= str_replace(" ", "T", $ispit->datum) ?>">
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="aktivan" id="aktivan_checkbox" <?= $ispit->aktivan ? "checked" : null ?>>
+            <label class="form-check-label" for="aktivan_checkbox">Aktivan</label>
+        </div>
+        
+        <input type="submit" name="izmjena" value="Spremi promjene" class="btn btn-success">
+        <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-danger">Izbriši ispit</a>
+    </form>
+</fieldset>
 
-        <br>
-
-        <label>Rok prijave</label>
-        <br>
-        <input type="datetime-local" name="rok_prijave" value="<?= str_replace(" ", "T", $ispit->rok_prijave) ?>">
-
-        <br>
-
-        <label>Maksimalno prijavljenih korisnika</label>
-        <input type="number" name="max_korisnika" value="<?= $ispit->max_korisnika ?>">
-
-        <br>
-
-        <label>Maksimalan broj bodova</label>
-        <input type="number" name="max_bodova" value="<?= $ispit->max_bodova ?>">
-
-        <br>
-
-        <label>Aktivan</label>
-        <br>
-        <input type="checkbox" name="aktivan" <?= $ispit->aktivan ? "checked" : null ?>>
-    </fieldset>
-
-    <br>
-    <div style="text-align: right;">
-        <input type="submit" name="izmjena" value="Spremi promjene" class="btn green">
-        <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn red">Izbriši ispit</a>
-    </div>
-</form>
-
-<h3>
-    Lista prijavljenih (<?= $broj_prijavljenih . "/" . $ispit->max_korisnika ?>)
-    &nbsp;
+<h4>
+    Lista prijavljenih (<?= $broj_prijavljenih . "/" . $ispit->max_korisnika ?>):
     <?php if ($broj_prijavljenih) : ?>
-        <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&odjavi_sve" class="btn btn-small red">Odjavi sve</a>
+        <a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&odjavi_sve" class="btn btn-sm btn-danger">Odjavi sve</a>
     <?php endif ?>
-</h3>
-<input type="text" onkeyup="filtrirajTabelu(this, 'tabela_prijavljenih')" placeholder="Filtriraj tabelu...">
-<table style="margin-top: 20px;" id="tabela_prijavljenih">
+</h4>
+
+<input type="text" class="form-control mb-2" onkeyup="filtrirajTabelu(this, 'tabela_prijavljenih')" placeholder="Filtriraj tabelu...">
+
+<table class="table table-sm table-bordered mb-4" id="tabela_prijavljenih">
     <thead>
-        <th style="width: 5%;">R.br.</th>
-        <th style="width: 35%;">Ime</th>
-        <th>Prezime</th>
-        <th style="width: 20%;">Opcije</th>
+        <th style="width: 1%;">R.br.</th>
+        <th style="width: 35%;">Prezime</th>
+        <th>Ime</th>
+        <th style="width: 1%;">Opcije</th>
     </thead>
+
     <tbody>
         <?php foreach ($prijavljeni_korisnici as $korisnik) : ?>
             <tr>
                 <td><?= $rbr ?></td>
-                <td><?= $korisnik->ime ?></td>
                 <td><?= $korisnik->prezime ?></td>
-                <td><a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&kid=<?= $korisnik->id ?>" class="btn btn-small red">Odjavi</a></td>
+                <td><?= $korisnik->ime ?></td>
+                <td><a href="?akcija=ispit/odjava&id=<?= $ispit->id ?>&kid=<?= $korisnik->id ?>" class="btn btn-sm btn-danger">Odjavi</a></td>
             </tr>
-        <?php $rbr++; endforeach ?>
+        <?php
+            ++$rbr;
+            endforeach
+        ?>
     </tbody>
 </table>

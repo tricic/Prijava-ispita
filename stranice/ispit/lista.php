@@ -10,20 +10,22 @@ $ispiti = Ispit::dohvatiSve();
 $aktivni_ispiti = Ispit::dohvatiSve("aktivan", 1);
 $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
 ?>
-<a href="?akcija=ispit/unos" class="btn green">Novi ispit</a>
+<fieldset class="mb-3">
+    <a href="?akcija=ispit/unos" class="btn btn-success">Novi ispit</a>
+</fieldset>
 
-<h3>Aktivni ispiti:</h3>
-<input type="text" onkeyup="filtrirajTabelu(this, 'aktivni_ispiti')" placeholder="Filtriraj tabelu...">
-<table style="margin-top: 20px;" id="aktivni_ispiti">
+<h5>Aktivni ispiti:</h5>
+<input type="text" class="form-control mb-2" onkeyup="filtrirajTabelu(this, 'aktivni_ispiti')" placeholder="Filtriraj tabelu...">
+<table class="table table-sm table-bordered mb-3" id="aktivni_ispiti">
     <thead>
-        <th style="width: 1%;">God.</th>
-        <th style="width: 1%;">Sem.</th>
-        <th style="width: 27%;">Predmet</th>
+        <th>God.</th>
+        <th>Sem.</th>
+        <th style="width: 30%;">Predmet</th>
         <th>Opis</th>
-        <th style="width: 13%;">Rok prijave</th>
-        <th style="width: 13%;">Datum ispita</th>
-        <th style="width: 1%;">Br. prijava</th>
-        <th style="width: 15%;">Opcije</th>
+        <th>Rok prijave</th>
+        <th>Datum ispita</th>
+        <th>Br. prijava</th>
+        <th>Opcije</th>
     </thead>
     <tbody>
         <?php foreach ($aktivni_ispiti as $ispit) : ?>
@@ -37,12 +39,12 @@ $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
                 <td><?= $predmet->semestar ?></td>
                 <td><?= $predmet->naziv ?></td>
                 <td><?= $ispit->opis ?></td>
-                <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
-                <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                <td class="<?= $rok_istekao ? 'text-danger' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
+                <td class="<?= $datum_istekao ? 'text-danger' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
                 <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                 <td>
-                    <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-small blue">Pogledaj</a>
-                    <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-small red">Izbriši</a>
+                    <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-sm btn-primary">Pogledaj</a>
+                    <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-sm btn-danger">Izbriši</a>
                 </td>
             </tr>
         <?php endforeach ?>
@@ -51,18 +53,18 @@ $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
 
 <br>
 
-<h3>Neaktivni ispiti:</h3>
-<input type="text" onkeyup="filtrirajTabelu(this, 'neaktivni_ispiti')" placeholder="Filtriraj tabelu...">
-<table style="margin-top: 20px;" id="neaktivni_ispiti">
+<h5>Neaktivni ispiti:</h5>
+<input type="text" class="form-control mb-2" onkeyup="filtrirajTabelu(this, 'neaktivni_ispiti')" placeholder="Filtriraj tabelu...">
+<table class="table table-sm table-bordered mb-4" id="neaktivni_ispiti">
     <thead>
-        <th style="width: 1%;">God.</th>
-        <th style="width: 1%;">Sem.</th>
-        <th style="width: 27%;">Predmet</th>
+        <th>God.</th>
+        <th>Sem.</th>
+        <th style="width: 30%;">Predmet</th>
         <th>Opis</th>
-        <th style="width: 13%;">Rok prijave</th>
-        <th style="width: 13%;">Datum ispita</th>
-        <th style="width: 1%;">Br. prijava</th>
-        <th style="width: 15%;">Opcije</th>
+        <th>Rok prijave</th>
+        <th>Datum ispita</th>
+        <th>Br. prijava</th>
+        <th>Opcije</th>
     </thead>
     <tbody>
         <?php foreach ($neaktivni_ispiti as $ispit) : ?>
@@ -76,12 +78,12 @@ $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
                 <td><?= $predmet->semestar ?></td>
                 <td><?= $predmet->naziv ?></td>
                 <td><?= $ispit->opis ?></td>
-                <td class="<?= $rok_istekao ? 'red-font' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
-                <td class="<?= $datum_istekao ? 'red-font' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
+                <td class="<?= $rok_istekao ? 'text-danger' : null ?>"><?= $ispit->rok_prijave()->format("Y-m-d H:i") ?></td>
+                <td class="<?= $datum_istekao ? 'text-danger' : null ?>"><?= $ispit->datum()->format("Y-m-d H:i") ?></td>
                 <td><?= count($ispit->prijavljeniKorisnici()) . "/" . $ispit->max_korisnika ?>
                 <td>
-                    <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-small blue">Pogledaj</a>
-                    <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-small red">Izbriši</a>
+                    <a href="?akcija=ispit/izmjena&id=<?= $ispit->id ?>" class="btn btn-sm btn-primary">Pogledaj</a>
+                    <a href="?akcija=ispit/brisanje&id=<?= $ispit->id ?>" class="btn btn-sm btn-danger">Izbriši</a>
                 </td>
             </tr>
         <?php endforeach ?>

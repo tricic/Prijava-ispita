@@ -28,52 +28,40 @@ if (isset($_POST["registracija"]))
     }
     else
     {
+        $korisnik->sifra = "";
+        prenesi_varijablu("korisnik", $korisnik);
         nova_greska($greske);
         preusmjeri("korisnik/registracija");
     }
 }
 ?>
-<form action="?akcija=korisnik/registracija" method="post">
-    <fieldset>
-        <legend>Unos podataka</legend>
-
-        <label>Korisničko ime</label>
-        <br>
-        <input type="text" name="korisnicko_ime" value="<?= $korisnik->korisnicko_ime ?? null ?>" onkeyup="validirajInput(this, 'korisnicko_ime_greska')" />
-        <div class="red-font smaller-font" id="korisnicko_ime_greska"></div>
-
-        <br>
-
-        <label>Email</label>
-        <br>
-        <input type="email" name="email" value="<?= $korisnik->email ?? null ?>" onkeyup="validirajInput(this, 'email_greska')" />
-        <div class="red-font smaller-font" id="email_greska"></div>
-
-        <br>
-
-        <label>Ime</label>
-        <br>
-        <input type="text" name="ime" value="<?= $korisnik->ime ?? null ?>" onkeyup="validirajInput(this, 'ime_greska')" />
-        <div class="red-font smaller-font" id="ime_greska"></div>
-
-        <br>
-        
-        <label>Prezime</label>
-        <br>
-        <input type="text" name="prezime" value="<?= $korisnik->prezime ?? null ?>" onkeyup="validirajInput(this, 'prezime_greska')" />
-        <div class="red-font smaller-font" id="prezime_greska"></div>
-
-        <br>
-
-        <label>Šifra</label>
-        <br>
-        <input type="password" name="sifra" onkeyup="validirajInput(this, 'sifra_greska')" />
-        <div class="red-font smaller-font" id="sifra_greska"></div>
-    </fieldset>
-
-    <br>
-
-    <div style="text-align: right;">
-        <input type="submit" name="registracija" value="Potvrdi" class="btn green">
-    </div>
-</form>
+<fieldset class="mb-3">
+    <form action="?akcija=korisnik/registracija" method="POST">
+        <div class="form-group">
+            <label>Korisničko ime</label>
+            <input type="text" name="korisnicko_ime" class="form-control" value="<?= $korisnik->korisnicko_ime ?? null ?>">
+        </div>
+    
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" value="<?= $korisnik->email ?? null ?>">
+        </div>
+    
+        <div class="form-group">
+            <label>Ime</label>
+            <input type="text" name="ime" class="form-control" value="<?= $korisnik->ime ?? null ?>">
+        </div>
+    
+        <div class="form-group">
+            <label>Prezime</label>
+            <input type="text" name="prezime" class="form-control" value="<?= $korisnik->prezime ?? null ?>">
+        </div>
+    
+        <div class="form-group">
+            <label>Šifra</label>
+            <input type="password" name="sifra" class="form-control">
+        </div>
+    
+        <input type="submit" name="registracija" value="Potvrdi" class="btn btn-success">
+    </form>
+</fieldset>
