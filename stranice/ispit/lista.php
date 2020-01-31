@@ -18,14 +18,16 @@ $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
 <input type="text" class="form-control mb-2" onkeyup="filtrirajTabelu(this, 'aktivni_ispiti')" placeholder="Filtriraj tabelu...">
 <table class="table table-sm table-bordered mb-3" id="aktivni_ispiti">
     <thead>
-        <th>God.</th>
-        <th>Sem.</th>
-        <th style="width: 30%;">Predmet</th>
-        <th>Opis</th>
-        <th>Rok prijave</th>
-        <th>Datum ispita</th>
-        <th>Br. prijava</th>
-        <th>Opcije</th>
+        <tr>
+            <th>God.</th>
+            <th>Sem.</th>
+            <th style="width: 30%;">Predmet</th>
+            <th>Opis</th>
+            <th>Rok prijave</th>
+            <th>Datum ispita</th>
+            <th>Br. prijava</th>
+            <th>Opcije</th>
+        </tr>
     </thead>
     <tbody>
         <?php foreach ($aktivni_ispiti as $ispit) : ?>
@@ -57,14 +59,16 @@ $neaktivni_ispiti = Ispit::dohvatiSve("aktivan", 0);
 <input type="text" class="form-control mb-2" onkeyup="filtrirajTabelu(this, 'neaktivni_ispiti')" placeholder="Filtriraj tabelu...">
 <table class="table table-sm table-bordered mb-4" id="neaktivni_ispiti">
     <thead>
-        <th>God.</th>
-        <th>Sem.</th>
-        <th style="width: 30%;">Predmet</th>
-        <th>Opis</th>
-        <th>Rok prijave</th>
-        <th>Datum ispita</th>
-        <th>Br. prijava</th>
-        <th>Opcije</th>
+        <tr>
+            <th>God.</th>
+            <th>Sem.</th>
+            <th style="width: 30%;">Predmet</th>
+            <th>Opis</th>
+            <th>Rok prijave</th>
+            <th>Datum ispita</th>
+            <th>Br. prijava</th>
+            <th>Opcije</th>
+        </tr>
     </thead>
     <tbody>
         <?php foreach ($neaktivni_ispiti as $ispit) : ?>

@@ -23,30 +23,28 @@ foreach ($_SESSION["prenesene_varijable"] ?? [] as $key => $value)
 }
 unset($_SESSION["prenesene_varijable"]);
 
-// HTML
-echo "<html>";
+echo "<!DOCTYPE html><html lang='bs'>";
 
 require("partials/head.php");
 
 echo "<body class='container'>";
 
-if (file_exists($fajl))
+require("partials/header.php");
+
+echo "<main>";
+
+try
 {
-    try
+    if (file_exists($fajl) == false)
     {
-        require("partials/header.php");
-        echo "<main>";
-        include($fajl);
+        throw new Exception("Stranica ne postoji!");
     }
-    catch (Exception $e)
-    {
-        $greska = $e->getMessage();
-        require("partials/greska.php");
-    }
+
+    include($fajl);
 }
-else
+catch (Exception $e)
 {
-    $greska = "Stranica ne postoji!";
+    $greska = $e->getMessage();
     require("partials/greska.php");
 }
 
