@@ -23,6 +23,9 @@ foreach ($_SESSION["prenesene_varijable"] ?? [] as $key => $value)
 }
 unset($_SESSION["prenesene_varijable"]);
 
+// Start output buffering
+ob_start();
+
 echo "<!DOCTYPE html><html lang='bs'>";
 
 require("partials/head.php");
@@ -55,3 +58,6 @@ require("partials/footer.php");
 echo "</body>";
 
 echo "</html>";
+
+// Flush output buffering
+ob_end_flush();
