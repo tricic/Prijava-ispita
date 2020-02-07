@@ -11,7 +11,7 @@ use Helpers\Auth;
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-0 px-2 mb-3">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Početna</a>
+                <a class="nav-link" href="?akcija=pocetna">Početna</a>
             </li>
 
             <?php if (Auth::korisnikJeAdmin()) : ?>
